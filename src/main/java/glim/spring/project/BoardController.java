@@ -89,7 +89,7 @@ public class BoardController {
 	@RequestMapping("/board/write.board")
 	public String write(Model model, MemberDTO dto) {
 
-		return "/board/write";
+		return "/board/write2";
 	}
 
 

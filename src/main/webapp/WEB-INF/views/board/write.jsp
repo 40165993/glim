@@ -64,7 +64,7 @@ $(function(){
         			   img.attr("src", resp);
         			   $("#summernote").summernote("insertNode",img[0]);
         		   }).fail(function(a,b,c){
-        			   console.log(a);
+        			.   console.log(a);
         		   console.log(b);
         			   console.log(c); 
         		   })

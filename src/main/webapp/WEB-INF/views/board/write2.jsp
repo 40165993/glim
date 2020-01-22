@@ -1,11 +1,35 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<title>Glim </title>
+<meta charset="UTF-8">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+	<script src="/js/jquery-3.3.1.min.js"></script>
+	<script src="/js/jquery-migrate-3.0.1.min.js"></script>
+	<script src="/js/jquery-ui.js"></script>
+	<script src="/js/popper.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/owl.carousel.min.js"></script>
+	<script src="/js/jquery.stellar.min.js"></script>
+	<script src="/js/jquery.countdown.min.js"></script>
+	<script src="/js/jquery.magnific-popup.min.js"></script>
+	<script src="/js/bootstrap-datepicker.min.js"></script>
+	<script src="/js/aos.js"></script>
+	<script src="/js/typed.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css"
+	rel="stylesheet">
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
+<title>Insert title here</title>
+
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -13,7 +37,6 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700,900"
 	rel="stylesheet">
-
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css"
@@ -33,43 +56,16 @@
 
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/style.css">
-<style>
-#commentsListContainer {
-	width: 100%;
-	height: 300px;
-	float: left;
-	overflow: auto;
-}
+<script>
+	$(function() {
+		$("#writeform").on("submit", function() {
+			$("#text").val($(".note-editable").html());
+		})
+	})
+</script>
 
-.comments11 {
-	width: 100%;
-	height: 100%;
-	word-break: break-all;
-	white-space: pre-line;
-}
 
-.comments {
-	width: 60%;
-	float: left;
-	word-break: break-all;
-	white-space: pre-line;
-}
 
-.commentWriter {
-	width: 20%;
-	float: left;
-}
-
-.update, .updateOk {
-	width: 10%;
-	float: left;
-}
-
-.delete {
-	width: 10%;
-	float: left;
-}
-</style>
 </head>
 <body>
 
@@ -100,13 +96,11 @@
 			</div>
 		</div>
 		<header class="site-navbar py-4 bg-white" role="banner">
-
 			<div class="container">
 				<div class="row align-items-center">
-
 					<div class="col-11 col-xl-2">
 						<h1 class="mb-0 site-logo">
-							<a href="/" class="text-black h2 mb-0">Glim</a>
+							<a href="index.html" class="text-black h2 mb-0">Glim</a>
 						</h1>
 					</div>
 					<div class="col-12 col-md-10 d-none d-xl-block">
@@ -114,7 +108,7 @@
 							role="navigation">
 
 							<ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
-								<li class="active"><a href="work.html">Write</a></li>
+								<li class="active"><a href="/">Home</a></li>
 								<li class="has-children"><a href="services.html">Category</a>
 									<ul class="dropdown">
 										<li><a href="/board/category.board?category=sisa">시사,이슈</a></li>
@@ -146,8 +140,9 @@
 
 
 	<div class="site-blocks-cover inner-page-cover overlay"
-		style="background-image: url(images/hero_1.jpg);" data-aos="fade"
-		data-stellar-background-ratio="0.5">
+		style="background-image: url(/resources/monmo2.jpg);" 			
+		data-stellar-background-ratio="0.5">	
+		
 		<div class="container">
 			<div
 				class="row align-items-center justify-content-center text-center">
@@ -167,105 +162,46 @@
 	</div>
 
 
+
 	<section class="site-section border-bottom">
+
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12 ml-auto">
-					<h3 class="mb-3">${dto.title }</h3>
-					<p>${dto.text }</p>
+					<h3 class="mb-3">글 작성하기</h3>
+					<form action="writeProc.board" method="post"
+						enctype="multipart/form-data" id="writeform">
+						<input type="text" name="title" placeholder="제목"> 
+						<select name="category">
+							<option value="">카테고리선택</option>
+							<option value="sisa">시사,이슈</option>
+							<option value="inmun">인문학,철학</option>
+							<option value="munhwa">문화,예술</option>
+							<option value="simli">심리,탐구</option>
+							<option value="IT">IT</option>
+						</select>
+						<textarea style="display: none" name="text" id="text"></textarea>
+						<div id="summernote"></div>
+						<button type="submit" style="float: right">작성하기</button>
+
+					</form>
+
+
 				</div>
 			</div>
-			
-			
-			<form action="/board/update.board" method="post">
-			<c:if test="${loginInfo != null }">
-			<input type="hidden" name="seq" value=${dto.seq }>
-			<input type="hidden" name="category" value="${dto.category }">
-			<button id=updateArticle>수정하기</button>
-			</c:if>
-			</form>
-
-			
-			<form action="/board/delete.board" method="post">
-				<c:if test="${loginInfo != null }">
-					<input type="hidden" name="seq" value=${dto.seq }>
-					<button id="deletearticle" style="float: left">삭제하기</button>
-					</c:if>
-			</form>
-			<button id="back">돌아가기</button>
-			
-
-
 		</div>
 	</section>
 
 
 	<section class="site-section testimonial-wrap">
 		<div class="container">
-			<!-- 댓글출력 -->
-			<div id="commentsListContainer" style="border: 1px solid black">
-				<form action="/board/deleteComments.board">
-					<c:forEach var="list" items="${list }">
-						<div class="comments" contenteditable="false"
-							id="text_${list.commentsSeq}">
-							<br>${list.text }</div>
-						<input type="hidden" value="${list.text }" name="text"
-							id="textProc_${list.commentsSeq}">
-						<input type="hidden" value="${dto.seq }" name="seq">
-						<input type="hidden" value="${list.commentsSeq }"
-							name="commentsSeq">
-						<div class="commentWriter" id="commentsWriter">${list.writer }</div>
-						<c:if test="${loginInfo.nickname == list.writer }">
-							<button type="button" id="modi_${list.commentsSeq}"
-								class="update" onclick="modi('${list.commentsSeq}')">수정</button>
-							<button type="button" id="updateOK_${list.commentsSeq}"
-								class="updateOk" name="commentsSeq" style="display: none"
-								onclick="update('${dto.seq}','${list.commentsSeq}')">수정완료</button>
-							<button id="delete_${list.commentsSeq}" class="delete">삭제</button>
-						</c:if>
-					</c:forEach>
-				</form>
+
+			<div class="row">
+				<div class="col-12">
+					<div class="testimonial"></div>
+				</div>
 			</div>
-
-
-
-			<div style="height: 100px"></div>
-
-			<!-- 댓글입력 -->
-			<div class="insertContainer">
-				<c:choose>
-					<c:when test="${loginInfo != null }">
-
-						<form action="/board/writeComments.board" method="post">
-							<div id="commentsContainer">
-								<textarea placeholder="댓글을 입력해주세요" name="text"
-									class="comments11"></textarea>
-								<input type="hidden" name="seq" value=${dto.seq }>
-							</div>
-							<div id=submitDiv>
-								<button id="submit" style="float: right">입력</button>
-							</div>
-
-						</form>
-
-					</c:when>
-					<c:otherwise>
-
-						<div id="commentsContainer">
-							<textarea placeholder="댓글은 로그인 이후 작성가능합니다" name="text"
-								class="comments11" readonly></textarea>
-							<input type="hidden" name="seq" value=${dto.seq }>
-						</div>
-						<div id=submitDiv></div>
-
-
-					</c:otherwise>
-				</c:choose>
-			</div>
-
 		</div>
-
-
 
 	</section>
 
@@ -333,7 +269,9 @@
 						<p>
 							<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 							Copyright &copy;
-							<script>document.write(new Date().getFullYear());</script>
+							<script>
+								document.write(new Date().getFullYear());
+							</script>
 							All rights reserved | This template is made with <i
 								class="icon-heart" aria-hidden="true"></i> by <a
 								href="https://colorlib.com" target="_blank">Colorlib</a>
@@ -347,80 +285,45 @@
 	</footer>
 	</div>
 
-	<script src="/js/jquery-3.3.1.min.js"></script>
-	<script src="/js/jquery-migrate-3.0.1.min.js"></script>
-	<script src="/js/jquery-ui.js"></script>
-	<script src="/js/popper.min.js"></script>
-	<script src="/js/bootstrap.min.js"></script>
-	<script src="/js/owl.carousel.min.js"></script>
-	<script src="/js/jquery.stellar.min.js"></script>
-	<script src="/js/jquery.countdown.min.js"></script>
-	<script src="/js/jquery.magnific-popup.min.js"></script>
-	<script src="/js/bootstrap-datepicker.min.js"></script>
-	<script src="/js/aos.js"></script>
-	<script src="/js/typed.js"></script>
+
+
 
 	<script>
-         $(document).ready(function() {
+   
+    	
+ 
+    $('#summernote').summernote({
+        placeholder: 'Hello bootstrap 4',
+        tabsize: 2,
+        height: 800,
+        callbacks: {
+        	 onImageUpload: function(files) {
+        	   var data = new FormData();
+        	   data.append("image" , files[0]);
+        	   $.ajax({
+        		   url : "/ajaxImage.board",
+        		   data : data,
+        		   type : "post",
+        		   enctype : "multipart/form-data",
+        		   processData : false,
+        		   cache : false,
+        		   contentType : false
+        		   }).done(function(resp){
+        			   var img = $("<img>");
+        			   img.attr("src", resp);
+        			   $("#summernote").summernote("insertNode",img[0]);
+        		   }).fail(function(a,b,c){
+        			   console.log(a);
+        		   console.log(b);
+        			   console.log(c); 
+        		   })
+        	   }
+          }
+      });
+   
 
-            function modi(seq) {
-               var modi = "#modi_" + seq;
-               var updateOk = "#updateOK_" + seq;
-               var text = "#text_" + seq;
-
-               $(modi).css("display", "none");
-               $(updateOk).css("display", "inline");
-               $(text).attr("contenteditable", "true");
-            }
-         });
-
-         var modi = function(seq) {
-            console.log(seq);
-            var modiseq = "#modi_" + seq;
-            var updateOk = "#updateOK_" + seq;
-            var text = "#text_" + seq;
-
-            $(modiseq).css("display", "none");
-            $(updateOk).css("display", "inline");
-            $(text).attr("contenteditable", "true");
-         }
-
-         var update = function(seq, comSeq) {
-
-            $("#textProc_" + comSeq).val($("#text_" + comSeq).text());
-            var modiseq = "#modi_" + seq;
-            var updateOk = "#updateOK_" + seq;
-            $(modiseq).css("display", "inline");
-            $(updateOk).css("display", "none");
-
-            $.ajax({
-               url : "/board/updateComments.board",
-               data : {
-                  text : $("#textProc_" + comSeq).val(),
-                  commentsSeq : comSeq,
-                  boardSeq : seq
-               },
-               method : "get"
-            }).done(function(data) {
-               console.log("success");
-            }).fail(function() {
-               console.log("fail");
-            });
-         
-         }
-
-         $("#back")
-               .on(
-                     "click",
-                     function() {
-                        location.href = "${pageContext.request.contextPath}/";
-                     })
-                     
-  
-         
-        
-         
-      </script>
+      
+    </script>
 
 </body>
 </html>

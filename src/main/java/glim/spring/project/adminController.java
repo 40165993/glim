@@ -34,7 +34,7 @@ public class adminController {
 	public String vanmember(Model model) {
 	List<MemberDTO> dto = adminservice.vanList();
 	model.addAttribute("dto", dto);
-	return "redirect:/admin/vanList";
+	return "/admin/vanList";
 	}
 	
 	//회원차단
