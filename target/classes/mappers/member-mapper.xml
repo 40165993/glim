@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="Member">
+  
+<!--   회원가입 -->
+  <insert id="insert"> 
+  insert into member
+  values(#{id},#{pw},#{name},#{nickname},#{birth},#{gender},#{phone},sysdate,'N',#{writerInfo})
+  </insert>
+  
+  <!-- 로그인 중복 -->
+  <select id="overlap" resultType="integer"> 
+  select count(*) from member where id=#{id}
+  </select>
+  
+  <!-- 로그인 -->
+  <select id="loginOk" resultType="integer">
+  select count(*) from member where id=#{id} and pw=#{pw}
+  </select>
+  
+  <!-- 내 정보 조회 -->
+  <select id="myInfo" resultType="glim.spring.dto.MemberDTO">
+  select * from member where id = #{id}
+  </select>
+  
+  <select id="writerInfo" resultType="glim.spring.dto.MemberDTO">
+  select * from member where nickname=#{nickname}
+  </select>
+  
+  <!-- 회원 목록 조회 -->
+  <select id="memberList" resultType="glim.spring.dto.MemberDTO">
+  select * from member
+  </select>
+  
+  <!-- 회원탈퇴 -->
+  <delete id="memberOut" >
+  delete from member where id = #{id}
+  </delete>
+  
+  <!-- 내 정보 수정 -->
+  <update id="myModify">
+  update member set pw = #{pw}, name = #{name}, nickname = #{nickname}, birth = #{birth}, gender = #{gender}, phone = #{phone}, writerInfo=#{writerInfo} where id = #{id}
+  </update>
+  
+  <select id="gudokList" resultType="glim.spring.dto.GudokDTO">
+  select * from gudok where id=#{id}
+  </select>
+  
+  </mapper>

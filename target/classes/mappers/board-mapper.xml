@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="board">
+	<insert id="insert" parameterType="java.util.Map">
+		insert into writeBoard values(#{sequence}, #{nickname}, #{category}, '0', sysdate, #{title}, #{text})
+	</insert>
+	
+	<select id="selectAll" resultType="glim.spring.dto.BoardDTO">
+	select * from writeBoard order by 1 desc
+	</select>
+	
+	<select id="selectSeq" resultType="glim.spring.dto.BoardDTO" parameterType="integer">
+		select * from writeBoard where seq=#{seq}
+	</select>
+	
+	<insert id="fileUpload" parameterType="List">
+	insert into fileList values
+	<foreach collection="fileList" item="param">
+        (#{sequence},
+        photoSeq_nextval,
+        #{param.filePath},
+        #{param.sysName},
+        #{param.oriName}
+        )
+    </foreach>
+	</insert>
+	
+	
+	<update id="viewCount" parameterType="integer">
+	update writeBoard set views= views+1 where seq=#{seq}
+	</update>
+	
+	<!-- 카테고리별 게시판 띄우기 -->
+	<select id="selectCategory" resultType="glim.spring.dto.BoardDTO">
+	select * from writeBoard where category=#{category}
+	</select>
+	
+	<select id="selectNickname" resultType="glim.spring.dto.BoardDTO">
+	select * from writeBoard where nickname=#{nickname}
+	</select>
+	
+	<select id="delete">
+	delete from writeBoard where seq=#{seq}
+	</select>
+	
+	<update id="update">
+	update writeBoard set nickname=#{nickname}, category=#{category}, title=#{title}, text=#{text}
+	where seq=#{sequence}
+	</update>
+	
+	<select id="isgudok" parameterType="java.util.Map" resultType="integer">
+	select count(*) from gudok where id=#{id} and gudok=#{nickname}
+	</select>
+	
+	<insert id="gudokinsert" parameterType="java.util.Map">
+	insert into gudok values(#{id}, #{nickname})
+	</insert>
+	
+	<delete id="cancleGudok" parameterType="java.util.Map">
+	delete from gudok where id=#{id} and gudok=#{nickname}
+	</delete>
+	
+	<select id="gudokList" resultType="glim.spring.dto.GudokDTO">
+	select * from gudok where id=#{id}
+	</select>
+	
+ </mapper>
