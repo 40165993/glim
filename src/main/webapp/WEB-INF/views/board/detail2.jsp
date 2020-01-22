@@ -4,11 +4,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Glim </title>
+<title>Glim</title>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+
 
 <link
 	href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700,900"
@@ -34,6 +45,20 @@
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/style.css">
 <style>
+.panel-heading {
+	font-size: 22px;
+	font-weight: bold;
+}
+
+.panel-body b {
+	font-size: 20px;
+}
+
+.panel-body p {
+	font-size: 18px;
+	padding-left: 12px;
+}
+
 #commentsListContainer {
 	width: 100%;
 	height: 300px;
@@ -42,7 +67,7 @@
 }
 
 .comments11 {
-	width: 100%;
+	width: 60%;
 	height: 100%;
 	word-break: break-all;
 	white-space: pre-line;
@@ -60,15 +85,33 @@
 	float: left;
 }
 
-.update, .updateOk {
+.update{
 	width: 10%;
 	float: left;
+}
+
+.updateOk{
+width: 10%;
+	float: right;
 }
 
 .delete {
 	width: 10%;
 	float: left;
 }
+
+img {
+	width: 100%;
+	height: 30%;
+}
+
+.abc{
+display:inline;
+width:50%;
+}
+
+
+
 </style>
 </head>
 <body>
@@ -146,7 +189,7 @@
 
 
 	<div class="site-blocks-cover inner-page-cover overlay"
-		style="background-image: url(images/hero_1.jpg);" data-aos="fade"
+		style="background-image: url(images/hero_1.jpg);"
 		data-stellar-background-ratio="0.5">
 		<div class="container">
 			<div
@@ -167,6 +210,8 @@
 	</div>
 
 
+
+
 	<section class="site-section border-bottom">
 		<div class="container">
 			<div class="row">
@@ -175,25 +220,25 @@
 					<p>${dto.text }</p>
 				</div>
 			</div>
-			
-			
+
+
 			<form action="/board/update.board" method="post">
-			<c:if test="${loginInfo != null }">
-			<input type="hidden" name="seq" value=${dto.seq }>
-			<input type="hidden" name="category" value="${dto.category }">
-			<button id=updateArticle>수정하기</button>
-			</c:if>
+				<c:if test="${loginInfo != null }">
+					<input type="hidden" name="seq" value=${dto.seq }>
+					<input type="hidden" name="category" value="${dto.category }">
+					<button id=updateArticle>수정하기</button>
+				</c:if>
 			</form>
 
-			
+
 			<form action="/board/delete.board" method="post">
 				<c:if test="${loginInfo != null }">
 					<input type="hidden" name="seq" value=${dto.seq }>
 					<button id="deletearticle" style="float: left">삭제하기</button>
-					</c:if>
+				</c:if>
 			</form>
 			<button id="back">돌아가기</button>
-			
+
 
 
 		</div>
@@ -202,165 +247,159 @@
 
 	<section class="site-section testimonial-wrap">
 		<div class="container">
-			<!-- 댓글출력 -->
-			<div id="commentsListContainer" style="border: 1px solid black">
-				<form action="/board/deleteComments.board">
+
+
+
+
+
+
+<!-- 댓글출력 -->
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<span class="glyphicon glyphicon-comment"></span> Comments
+				</div>
+				<div class="panel-body">
 					<c:forEach var="list" items="${list }">
-						<div class="comments" contenteditable="false"
-							id="text_${list.commentsSeq}">
-							<br>${list.text }</div>
-						<input type="hidden" value="${list.text }" name="text"
-							id="textProc_${list.commentsSeq}">
-						<input type="hidden" value="${dto.seq }" name="seq">
-						<input type="hidden" value="${list.commentsSeq }"
-							name="commentsSeq">
-						<div class="commentWriter" id="commentsWriter">${list.writer }</div>
+						<b>${list.writer }</b><br>
+						<div class="abc" id="text_${list.commentsSeq}" style="contenteditable:false">${list.text }</div>
 						<c:if test="${loginInfo.nickname == list.writer }">
 							<button type="button" id="modi_${list.commentsSeq}"
-								class="update" onclick="modi('${list.commentsSeq}')">수정</button>
+								class="update" onclick="modi('${list.commentsSeq}')" style="float:right">수정</button>
 							<button type="button" id="updateOK_${list.commentsSeq}"
 								class="updateOk" name="commentsSeq" style="display: none"
 								onclick="update('${dto.seq}','${list.commentsSeq}')">수정완료</button>
-							<button id="delete_${list.commentsSeq}" class="delete">삭제</button>
+							<button id="delete_${list.commentsSeq}" class="delete" style="float:right"
+							onclick="deleteComments('${dto.seq}','${list.commentsSeq}')">삭제</button>
+							<input type="hidden" value="${list.text }" name="text"
+				id="textProc_${list.commentsSeq}">
+						<input type="hidden" value="${dto.seq }" name="seq">
+			<input type="hidden" value="${list.commentsSeq }" name="commentsSeq">
 						</c:if>
+						<hr>
 					</c:forEach>
+					
+					
+
+
+						<hr>
+						<b>New Comment</b><br /> <br>
+						<c:choose>
+		<c:when test="${loginInfo != null }">
+						<form action="/board/writeComments.board" method="post">
+						<input ng-model="Name" Style="width: 40%; display: inline-block;" class="form-control"
+							placeholder="Write Your Name.. " name="text" class="comments11"  /> 
+							<input type="hidden" name="seq" value=${dto.seq }>
+						<button class="btn btn-danger" id="submit" style="float: right">Add Comment</button>
+					</form>
+					</c:when>
+		<c:otherwise>
+		<input ng-model="Name" Style="width: 40%; display: inline-block;" class="form-control"
+							placeholder="댓글은 로그인 이후 작성 가능합니다." name="text" class="comments11"  /> 
+							<input type="hidden" name="seq" value=${dto.seq }>
+							
+		</c:otherwise>
+	</c:choose>
+					</div>
+				</div>
+			</div>
+</body>
+
+
+
+</section>
+
+
+<footer class="site-footer">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-9">
+				<div class="row">
+					<div class="col-md-3">
+						<h2 class="footer-heading mb-4">Quick Links</h2>
+						<ul class="list-unstyled">
+							<li><a href="#">About Us</a></li>
+							<li><a href="#">Services</a></li>
+							<li><a href="#">Testimonials</a></li>
+							<li><a href="#">Contact Us</a></li>
+						</ul>
+					</div>
+					<div class="col-md-3">
+						<h2 class="footer-heading mb-4">Products</h2>
+						<ul class="list-unstyled">
+							<li><a href="#">About Us</a></li>
+							<li><a href="#">Services</a></li>
+							<li><a href="#">Testimonials</a></li>
+							<li><a href="#">Contact Us</a></li>
+						</ul>
+					</div>
+					<div class="col-md-3">
+						<h2 class="footer-heading mb-4">Features</h2>
+						<ul class="list-unstyled">
+							<li><a href="#">About Us</a></li>
+							<li><a href="#">Services</a></li>
+							<li><a href="#">Testimonials</a></li>
+							<li><a href="#">Contact Us</a></li>
+						</ul>
+					</div>
+					<div class="col-md-3">
+						<h2 class="footer-heading mb-4">Follow Us</h2>
+						<a href="#" class="pl-0 pr-3"><span class="icon-facebook"></span></a>
+						<a href="#" class="pl-3 pr-3"><span class="icon-twitter"></span></a>
+						<a href="#" class="pl-3 pr-3"><span class="icon-instagram"></span></a>
+						<a href="#" class="pl-3 pr-3"><span class="icon-linkedin"></span></a>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<h2 class="footer-heading mb-4">Subscribe Newsletter</h2>
+				<form action="#" method="post">
+					<div class="input-group mb-3">
+						<input type="text"
+							class="form-control border-secondary text-white bg-transparent"
+							placeholder="Enter Email" aria-label="Enter Email"
+							aria-describedby="button-addon2">
+						<div class="input-group-append">
+							<button class="btn btn-primary text-white" type="button"
+								id="button-addon2">Send</button>
+						</div>
+					</div>
 				</form>
 			</div>
-
-
-
-			<div style="height: 100px"></div>
-
-			<!-- 댓글입력 -->
-			<div class="insertContainer">
-				<c:choose>
-					<c:when test="${loginInfo != null }">
-
-						<form action="/board/writeComments.board" method="post">
-							<div id="commentsContainer">
-								<textarea placeholder="댓글을 입력해주세요" name="text"
-									class="comments11"></textarea>
-								<input type="hidden" name="seq" value=${dto.seq }>
-							</div>
-							<div id=submitDiv>
-								<button id="submit" style="float: right">입력</button>
-							</div>
-
-						</form>
-
-					</c:when>
-					<c:otherwise>
-
-						<div id="commentsContainer">
-							<textarea placeholder="댓글은 로그인 이후 작성가능합니다" name="text"
-								class="comments11" readonly></textarea>
-							<input type="hidden" name="seq" value=${dto.seq }>
-						</div>
-						<div id=submitDiv></div>
-
-
-					</c:otherwise>
-				</c:choose>
+		</div>
+		<div class="row pt-5 mt-5 text-center">
+			<div class="col-md-12">
+				<div class="border-top pt-5">
+					<p>
+						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+						Copyright &copy;
+						<script>document.write(new Date().getFullYear());</script>
+						All rights reserved | This template is made with <i
+							class="icon-heart" aria-hidden="true"></i> by <a
+							href="https://colorlib.com" target="_blank">Colorlib</a>
+						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+					</p>
+				</div>
 			</div>
 
 		</div>
-
-
-
-	</section>
-
-
-	<footer class="site-footer">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-9">
-					<div class="row">
-						<div class="col-md-3">
-							<h2 class="footer-heading mb-4">Quick Links</h2>
-							<ul class="list-unstyled">
-								<li><a href="#">About Us</a></li>
-								<li><a href="#">Services</a></li>
-								<li><a href="#">Testimonials</a></li>
-								<li><a href="#">Contact Us</a></li>
-							</ul>
-						</div>
-						<div class="col-md-3">
-							<h2 class="footer-heading mb-4">Products</h2>
-							<ul class="list-unstyled">
-								<li><a href="#">About Us</a></li>
-								<li><a href="#">Services</a></li>
-								<li><a href="#">Testimonials</a></li>
-								<li><a href="#">Contact Us</a></li>
-							</ul>
-						</div>
-						<div class="col-md-3">
-							<h2 class="footer-heading mb-4">Features</h2>
-							<ul class="list-unstyled">
-								<li><a href="#">About Us</a></li>
-								<li><a href="#">Services</a></li>
-								<li><a href="#">Testimonials</a></li>
-								<li><a href="#">Contact Us</a></li>
-							</ul>
-						</div>
-						<div class="col-md-3">
-							<h2 class="footer-heading mb-4">Follow Us</h2>
-							<a href="#" class="pl-0 pr-3"><span class="icon-facebook"></span></a>
-							<a href="#" class="pl-3 pr-3"><span class="icon-twitter"></span></a>
-							<a href="#" class="pl-3 pr-3"><span class="icon-instagram"></span></a>
-							<a href="#" class="pl-3 pr-3"><span class="icon-linkedin"></span></a>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3">
-					<h2 class="footer-heading mb-4">Subscribe Newsletter</h2>
-					<form action="#" method="post">
-						<div class="input-group mb-3">
-							<input type="text"
-								class="form-control border-secondary text-white bg-transparent"
-								placeholder="Enter Email" aria-label="Enter Email"
-								aria-describedby="button-addon2">
-							<div class="input-group-append">
-								<button class="btn btn-primary text-white" type="button"
-									id="button-addon2">Send</button>
-							</div>
-						</div>
-					</form>
-				</div>
-			</div>
-			<div class="row pt-5 mt-5 text-center">
-				<div class="col-md-12">
-					<div class="border-top pt-5">
-						<p>
-							<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-							Copyright &copy;
-							<script>document.write(new Date().getFullYear());</script>
-							All rights reserved | This template is made with <i
-								class="icon-heart" aria-hidden="true"></i> by <a
-								href="https://colorlib.com" target="_blank">Colorlib</a>
-							<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-						</p>
-					</div>
-				</div>
-
-			</div>
-		</div>
-	</footer>
 	</div>
+</footer>
+</div>
 
-	<script src="/js/jquery-3.3.1.min.js"></script>
-	<script src="/js/jquery-migrate-3.0.1.min.js"></script>
-	<script src="/js/jquery-ui.js"></script>
-	<script src="/js/popper.min.js"></script>
-	<script src="/js/bootstrap.min.js"></script>
-	<script src="/js/owl.carousel.min.js"></script>
-	<script src="/js/jquery.stellar.min.js"></script>
-	<script src="/js/jquery.countdown.min.js"></script>
-	<script src="/js/jquery.magnific-popup.min.js"></script>
-	<script src="/js/bootstrap-datepicker.min.js"></script>
-	<script src="/js/aos.js"></script>
-	<script src="/js/typed.js"></script>
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/jquery-migrate-3.0.1.min.js"></script>
+<script src="/js/jquery-ui.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/jquery.stellar.min.js"></script>
+<script src="/js/jquery.countdown.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/bootstrap-datepicker.min.js"></script>
+<script src="/js/aos.js"></script>
+<script src="/js/typed.js"></script>
 
-	<script>
+<script>
          $(document).ready(function() {
 
             function modi(seq) {
@@ -370,6 +409,7 @@
 
                $(modi).css("display", "none");
                $(updateOk).css("display", "inline");
+               $(updateOk).css("float", "right");
                $(text).attr("contenteditable", "true");
             }
          });
@@ -379,19 +419,22 @@
             var modiseq = "#modi_" + seq;
             var updateOk = "#updateOK_" + seq;
             var text = "#text_" + seq;
+            var deletec = "#delete_" + seq;
 
             $(modiseq).css("display", "none");
             $(updateOk).css("display", "inline");
             $(text).attr("contenteditable", "true");
+            $(deletec).css("display", "none");
          }
 
          var update = function(seq, comSeq) {
 
             $("#textProc_" + comSeq).val($("#text_" + comSeq).text());
-            var modiseq = "#modi_" + seq;
-            var updateOk = "#updateOK_" + seq;
-            $(modiseq).css("display", "inline");
-            $(updateOk).css("display", "none");
+            var modiseq = "#modi_" + comSeq;
+            var updateOk = "#updateOK_" + comSeq;
+            var deletec = "#delete_"+ comSeq;
+            var text = "#text_" + comSeq;
+            
 
             $.ajax({
                url : "/board/updateComments.board",
@@ -407,6 +450,36 @@
                console.log("fail");
             });
          
+            
+            $(modiseq).css("display", "inline");
+            $(updateOk).css("display", "none");
+            $(text).attr("contenteditable", "false");
+            $(deletec).css("display", "inline");
+         }
+         
+         
+       
+        	 
+         
+         
+         
+         
+         var deleteComments = function(seq, comSeq){
+        	 var seq = seq;
+        	 var commentsSeq = comSeq;
+        	 
+        	 $.ajax({
+                 url : "/board/deleteComments.board",
+                 data : {
+                    commentsSeq : comSeq,
+                    seq : seq
+                 },
+                 method : "get"
+              }).done(function(data) {
+                 console.log("success");
+              }).fail(function() {
+                 console.log("fail");
+              });
          }
 
          $("#back")

@@ -84,7 +84,7 @@
                     <li><a href="/board/category.board?category=IT">IT</a></li>
                   </ul>
                   </li>
-                  <li><a href="${pageContext.request.contextPath}/member/memberOut.mem">회원탈퇴</a></li>
+                  <li><a href="${pageContext.request.contextPath}/member/membergudok.mem">구독중인작가</a></li>
                    </c:if>
                    
                    

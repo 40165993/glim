@@ -91,10 +91,17 @@ public class MemberController {
       MemberDTO id = (MemberDTO) session.getAttribute("loginInfo");
       System.out.println("여기ㅗ학인"+id.getId());
       MemberDTO result = service.myInfo(id.getId());//내정보출력
-     List<GudokDTO> list = boardService.gudokList(id.getId());//구독중인작가출력
       model.addAttribute("result", result);
-     model.addAttribute("list", list);
       return "/member/info";                                                                                                                                                                                                                                                                                       
+   }
+   
+   //구독중인작가
+   @RequestMapping("/membergudok.mem")
+   public String gudokList(Model model) {
+	   MemberDTO id = (MemberDTO) session.getAttribute("loginInfo");
+	   List<GudokDTO> list = boardService.gudokList(id.getId());//구독중인작가출력
+	   model.addAttribute("list", list);
+	   return "/member/gudok";
    }
 
    //회원탈퇴
