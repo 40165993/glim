@@ -48,8 +48,12 @@
 .panel-heading {
 	font-size: 22px;
 	font-weight: bold;
+	background-color: #3333336e !important;
+    border-color: #3333336e !important;
 }
-
+.panel-primary {
+    border-color: #3333336e !important;
+}
 .panel-body b {
 	font-size: 20px;
 }
@@ -58,6 +62,9 @@
 	font-size: 18px;
 	padding-left: 12px;
 }
+.btn-danger {
+  background-color: #0d0cb5 !important;
+  border-color: #0d0cb5 !important; }
 
 #commentsListContainer {
 	width: 100%;
@@ -85,13 +92,13 @@
 	float: left;
 }
 
-.update{
+.update {
 	width: 10%;
 	float: left;
 }
 
-.updateOk{
-width: 10%;
+.updateOk {
+	width: 10%;
 	float: right;
 }
 
@@ -105,13 +112,10 @@ img {
 	height: 30%;
 }
 
-.abc{
-display:inline;
-width:50%;
+.abc {
+	display: inline;
+	width: 50%;
 }
-
-
-
 </style>
 </head>
 <body>
@@ -253,55 +257,66 @@ width:50%;
 
 
 
-<!-- 댓글출력 -->
+			<!-- 댓글출력 -->
 			<div class="panel panel-primary">
 				<div class="panel-heading">
 					<span class="glyphicon glyphicon-comment"></span> Comments
 				</div>
 				<div class="panel-body">
+				
+					<div id="commentsList">
 					<c:forEach var="list" items="${list }">
-						<b>${list.writer }</b><br>
-						<div class="abc" id="text_${list.commentsSeq}" style="contenteditable:false">${list.text }</div>
+						<b>${list.writer }</b>
+						<br>
+						<div class="abc" id="text_${list.commentsSeq}"
+							style="contenteditable: false">${list.text }</div>
 						<c:if test="${loginInfo.nickname == list.writer }">
 							<button type="button" id="modi_${list.commentsSeq}"
-								class="update" onclick="modi('${list.commentsSeq}')" style="float:right">수정</button>
+								class="update" onclick="modi('${list.commentsSeq}')"
+								style="float: right">수정</button>
 							<button type="button" id="updateOK_${list.commentsSeq}"
 								class="updateOk" name="commentsSeq" style="display: none"
 								onclick="update('${dto.seq}','${list.commentsSeq}')">수정완료</button>
-							<button id="delete_${list.commentsSeq}" class="delete" style="float:right"
-							onclick="deleteComments('${dto.seq}','${list.commentsSeq}')">삭제</button>
+							<button id="delete_${list.commentsSeq}" class="delete"
+								style="float: right"
+								onclick="deleteComments('${loginInfo.nickname}','${dto.seq}','${list.commentsSeq}')">삭제</button>
 							<input type="hidden" value="${list.text }" name="text"
-				id="textProc_${list.commentsSeq}">
-						<input type="hidden" value="${dto.seq }" name="seq">
-			<input type="hidden" value="${list.commentsSeq }" name="commentsSeq">
+								id="textProc_${list.commentsSeq}">
+							<input type="hidden" value="${dto.seq }" name="seq">
+							<input type="hidden" value="${list.commentsSeq }"
+								name="commentsSeq">
 						</c:if>
 						<hr>
 					</c:forEach>
-					
-					
-
-
-						<hr>
-						<b>New Comment</b><br /> <br>
-						<c:choose>
-		<c:when test="${loginInfo != null }">
-						<form action="/board/writeComments.board" method="post">
-						<input ng-model="Name" Style="width: 40%; display: inline-block;" class="form-control"
-							placeholder="Write Your Name.. " name="text" class="comments11"  /> 
-							<input type="hidden" name="seq" value=${dto.seq }>
-						<button class="btn btn-danger" id="submit" style="float: right">Add Comment</button>
-					</form>
-					</c:when>
-		<c:otherwise>
-		<input ng-model="Name" Style="width: 40%; display: inline-block;" class="form-control"
-							placeholder="댓글은 로그인 이후 작성 가능합니다." name="text" class="comments11"  /> 
-							<input type="hidden" name="seq" value=${dto.seq }>
-							
-		</c:otherwise>
-	</c:choose>
 					</div>
+
+
+
+
+					<hr>
+					<b>New Comment</b><br /> <br>
+					<c:choose>
+						<c:when test="${loginInfo != null }">
+							<form action="/board/writeComments.board" method="post">
+								<input ng-model="Name"
+									Style="width: 80%; display: inline-block;" class="form-control"
+									placeholder="Write Your Name.. " name="text" class="comments11" />
+								<input type="hidden" name="seq" value=${dto.seq }>
+								<button class="btn btn-danger" id="submit" style="float: right">Add
+									Comment</button>
+							</form>
+						</c:when>
+						<c:otherwise>
+							<input ng-model="Name" Style="width: 40%; display: inline-block;"
+								class="form-control" placeholder="댓글은 로그인 이후 작성 가능합니다."
+								name="text" class="comments11" />
+							<input type="hidden" name="seq" value=${dto.seq }>
+
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
+		</div>
 </body>
 
 
@@ -372,7 +387,9 @@ width:50%;
 					<p>
 						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 						Copyright &copy;
-						<script>document.write(new Date().getFullYear());</script>
+						<script>
+							document.write(new Date().getFullYear());
+						</script>
 						All rights reserved | This template is made with <i
 							class="icon-heart" aria-hidden="true"></i> by <a
 							href="https://colorlib.com" target="_blank">Colorlib</a>
@@ -400,100 +417,171 @@ width:50%;
 <script src="/js/typed.js"></script>
 
 <script>
-         $(document).ready(function() {
+	$(document).ready(function() {
 
-            function modi(seq) {
-               var modi = "#modi_" + seq;
-               var updateOk = "#updateOK_" + seq;
-               var text = "#text_" + seq;
+		function modi(seq) {
+			var modi = "#modi_" + seq;
+			var updateOk = "#updateOK_" + seq;
+			var text = "#text_" + seq;
 
-               $(modi).css("display", "none");
-               $(updateOk).css("display", "inline");
-               $(updateOk).css("float", "right");
-               $(text).attr("contenteditable", "true");
-            }
-         });
+			$(modi).css("display", "none");
+			$(updateOk).css("display", "inline");
+			$(updateOk).css("float", "right");
+			$(text).attr("contenteditable", "true");
+		}
+	});
 
-         var modi = function(seq) {
-            console.log(seq);
-            var modiseq = "#modi_" + seq;
-            var updateOk = "#updateOK_" + seq;
-            var text = "#text_" + seq;
-            var deletec = "#delete_" + seq;
+	var modi = function(seq) {
+		console.log(seq);
+		var modiseq = "#modi_" + seq;
+		var updateOk = "#updateOK_" + seq;
+		var text = "#text_" + seq;
+		var deletec = "#delete_" + seq;
 
-            $(modiseq).css("display", "none");
-            $(updateOk).css("display", "inline");
-            $(text).attr("contenteditable", "true");
-            $(deletec).css("display", "none");
-         }
+		$(modiseq).css("display", "none");
+		$(updateOk).css("display", "inline");
+		$(text).attr("contenteditable", "true");
+		$(deletec).css("display", "none");
+	}
 
-         var update = function(seq, comSeq) {
+	var update = function(seq, comSeq) {
 
-            $("#textProc_" + comSeq).val($("#text_" + comSeq).text());
-            var modiseq = "#modi_" + comSeq;
-            var updateOk = "#updateOK_" + comSeq;
-            var deletec = "#delete_"+ comSeq;
-            var text = "#text_" + comSeq;
-            
+		$("#textProc_" + comSeq).val($("#text_" + comSeq).text());
+		var modiseq = "#modi_" + comSeq;
+		var updateOk = "#updateOK_" + comSeq;
+		var deletec = "#delete_" + comSeq;
+		var text = "#text_" + comSeq;
 
-            $.ajax({
-               url : "/board/updateComments.board",
-               data : {
-                  text : $("#textProc_" + comSeq).val(),
-                  commentsSeq : comSeq,
-                  boardSeq : seq
-               },
-               method : "get"
-            }).done(function(data) {
-               console.log("success");
-            }).fail(function() {
-               console.log("fail");
-            });
-         
-            
-            $(modiseq).css("display", "inline");
-            $(updateOk).css("display", "none");
-            $(text).attr("contenteditable", "false");
-            $(deletec).css("display", "inline");
-         }
-         
-         
-       
-        	 
-         
-         
-         
-         
-         var deleteComments = function(seq, comSeq){
-        	 var seq = seq;
-        	 var commentsSeq = comSeq;
-        	 
-        	 $.ajax({
-                 url : "/board/deleteComments.board",
-                 data : {
-                    commentsSeq : comSeq,
-                    seq : seq
-                 },
-                 method : "get"
-              }).done(function(data) {
-                 console.log("success");
-              }).fail(function() {
-                 console.log("fail");
-              });
-         }
+		$.ajax({
+			url : "/board/updateComments.board",
+			data : {
+				text : $("#textProc_" + comSeq).val(),
+				commentsSeq : comSeq,
+				boardSeq : seq
+			},
+			method : "get"
+		}).done(function(data) {
+			console.log("success");
+		}).fail(function() {
+			console.log("fail");
+		});
 
-         $("#back")
-               .on(
-                     "click",
-                     function() {
-                        location.href = "${pageContext.request.contextPath}/";
-                     })
-                     
-  
-         
-        
-         
-      </script>
+		$(modiseq).css("display", "inline");
+		$(updateOk).css("display", "none");
+		$(text).attr("contenteditable", "false");
+		$(deletec).css("display", "inline");
+	}
+
+	/*
+	var deleteComments = function(seq, comSeq){
+	 var seq = seq;
+	 var commentsSeq = comSeq;
+	 $.ajax({
+	        url : "/board/deleteComments.board",
+	        data : {
+	           commentsSeq : comSeq,
+	           seq : seq
+	        },
+	        method : "get"
+	     }).done(function(data) {
+	   	  console.log(data)
+	        console.log("success");
+	        
+	     }).fail(function() {
+	        console.log("fail");
+	     });
+	}
+	 */
+
+	function deleteComments(loginUser, seq, comSeq) {		
+		var loginUser = loginUser;
+		var seq = seq;
+		console.log("delcomments스트립트인입" + seq + comSeq + loginUser);
+		$.ajax({
+			type : 'post',
+			url : "/../board/delComments",			
+			headers : {
+				"Content-Type" : "application/json"
+			},
+			dataType : 'json',
+			data : JSON.stringify({
+		           commentsSeq : comSeq,
+		           seq : seq
+		        }),
+			success : function(response) {				
+				var html="";
+				if(response.length>0){
+					console.log(response);
+					console.log("길이는"+response.length);
+					console.log("첫번째 댓글쓴이는 "+response[0].writer);
+					
+					for(var i=0; i<response.length; i++){
+						html +='<b>'+response[i].writer+'</b>'
+							+'<br>'
+							+'<div class="abc" id="text_'+response[i].commentsSeq
+							+'"style="contenteditable: false">'+response[i].text+'</div>';
+						if(loginUser==response[i].writer){
+							html+= 	'<button type="button" id="modi_'+response[i].commentsSeq+'"'
+								+ 'class="update" onclick="modi('+response[i].commentsSeq+')"'
+								+ 'style="float: right">수정</button>'
+								+ '<button type="button" id="updateOK_'+response[i].commentsSeq+'"'
+								+ 'class="updateOk" name="commentsSeq" style="display: none"'
+								+ 'onclick="update(\''+seq+'\',\''+response[i].commentsSeq+'\')">수정완료</button>'
+								+ '<button id="delete_'+response[i].commentsSeq+'" class="delete"'
+								+ 'style="float: right"'
+								+ 'onclick="deleteComments(\''+loginUser+'\',\''+seq+'\',\''+response[i].commentsSeq+'\');">삭제</button>'
+								+ '<input type="hidden" value="'+response[i].text+'" name="text"'
+								+ 'id="textProc_'+response[i].commentsSeq+'">'
+								+ '<input type="hidden" value="'+seq+'" name="seq">'
+								+ '<input type="hidden" value="'+response[i].commentsSeq+'"'
+								+ 'name="commentsSeq">';
+						}
+						html += '<hr>';							
+					}
+									
+				}else{
+					html+= '<hr>';
+				}
+				$("#commentsList").empty();
+                $("#commentsList").append(html);	
+				
+				
+				
+				/*
+					<c:choose>
+						<c:when test="${loginInfo != null }">
+							<form action="/board/writeComments.board" method="post">
+								<input ng-model="Name"
+									Style="width: 40%; display: inline-block;" class="form-control"
+									placeholder="Write Your Name.. " name="text" class="comments11" />
+								<input type="hidden" name="seq" value=${dto.seq }>
+								<button class="btn btn-danger" id="submit" style="float: right">Add
+									Comment</button>
+							</form>
+						</c:when>
+						<c:otherwise>
+							<input ng-model="Name" Style="width: 40%; display: inline-block;"
+								class="form-control" placeholder="댓글은 로그인 이후 작성 가능합니다."
+								name="text" class="comments11" />
+							<input type="hidden" name="seq" value=${dto.seq }>
+
+						</c:otherwise>
+					</c:choose>
+				
+				*/
+				
+				
+			},
+			error : function(jqXHR) {
+				console.log(jqXHR.responseText);
+			}
+		})
+	}	 
+
+	$("#back").on("click", function() {
+		location.href = "${pageContext.request.contextPath}/";
+	})
+</script>
 
 </body>
 </html>

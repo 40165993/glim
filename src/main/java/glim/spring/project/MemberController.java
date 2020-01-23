@@ -74,6 +74,12 @@ public class MemberController {
          return "index";
       }
     
+   
+   @RequestMapping("loginProc.mem")
+   public String loginProc( Model model) {	
+	   return "index";
+	   
+   }
    //로그아웃
    @RequestMapping("logout.mem")
       public String logout(String id, Model model) {

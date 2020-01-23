@@ -6,14 +6,19 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -176,10 +181,10 @@ public class BoardController {
 		MemberDTO loginInfo = (MemberDTO) session.getAttribute("loginInfo");
 		boardService.viewCount(seq);
 		BoardDTO dto = boardService.selectSeq(seq);
-		List<CommentsDTO> list = boardService.selectCommentsSeq(seq);
+		List<CommentsDTO> list = boardService.selectCommentsSeq(seq);//댓글출력
 		//		System.out.println(dto.getSeq());
 		model.addAttribute("dto", dto);
-		model.addAttribute("list",list);
+		model.addAttribute("list",list);//댓글뿌려주기
 		model.addAttribute("loginInfo", loginInfo);
 		return "/board/detail2";
 
@@ -228,7 +233,7 @@ public class BoardController {
 			commentsdto.setWriter(loginInfo.getNickname());
 			boardService.insert(commentsdto, seq);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			// TODO Auto-generated dk			catch block
 			e.printStackTrace();
 		}
 		return "redirect:/board/detail.board?seq="+seq;
@@ -237,17 +242,39 @@ public class BoardController {
 
 
 	//댓글 삭제
+	@RequestMapping(value="/board/delComments", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public List<CommentsDTO> deleteComments(@RequestBody Map<String, Object> params) {
+		System.out.println("백 인입 성공 ");
+		List<CommentsDTO> result = null;
+		try {			
+			int seq = Integer.parseInt((String)params.get("seq"));
+			int commentsSeq = Integer.parseInt((String)params.get("commentsSeq"));
+			System.out.println("seq는 "+seq);
+			System.out.println("commentsSeq는 "+commentsSeq);			
+			boardService.deleteComment(seq, commentsSeq);
+			result = boardService.selectCommentsSeq(seq);//댓글출력			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		return result;
+	}
+	/*
+	 * 	//댓글 삭제
 	@RequestMapping("/board/deleteComments.board")
-	public String deleteComments(int seq, int commentsSeq) {
+	public String deleteComments(int seq, int commentsSeq, Model model) {
 		try {
 			boardService.deleteComment(seq, commentsSeq);
+			List<CommentsDTO> list = boardService.selectCommentsSeq(seq);//댓글출력
+			model.addAttribute("list",list);//댓글뿌려주기
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "redirect:/board/detail.board?seq="+seq;
+		return "/board/detail.board?seq="+seq;
 
-	}
+	}*/
 
 	//댓글수정
 	@RequestMapping("/board/updateComments.board")
@@ -263,6 +290,7 @@ public class BoardController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.out.println("댓글수정리다이렉트");
 		return "redirect:/board/detail.board?seq="+boardSeq;
 
 	}
