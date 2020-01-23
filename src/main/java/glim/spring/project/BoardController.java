@@ -229,6 +229,7 @@ public class BoardController {
 	@RequestMapping("/board/writeComments.board")
 	public String writeComments(CommentsDTO commentsdto, int seq) {
 		try {
+			System.out.println("여기까진옴");
 			MemberDTO loginInfo = (MemberDTO) session.getAttribute("loginInfo");
 			commentsdto.setWriter(loginInfo.getNickname());
 			boardService.insert(commentsdto, seq);

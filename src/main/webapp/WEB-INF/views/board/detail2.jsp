@@ -297,12 +297,14 @@ img {
 					<b>New Comment</b><br /> <br>
 					<c:choose>
 						<c:when test="${loginInfo != null }">
-							<form action="/board/writeComments.board" method="post">
+							<form id="insertForm" onsubmit="return false;">
 								<input ng-model="Name"
 									Style="width: 80%; display: inline-block;" class="form-control"
 									placeholder="Write Your Name.. " name="text" class="comments11" />
-								<input type="hidden" name="seq" value=${dto.seq }>
-								<button class="btn btn-danger" id="submit" style="float: right">Add
+								<input type="hidden" name="seq" value="${dto.seq }">
+								<input type="hidden" name="loginUser" value="${loginInfo.nickname}">
+								<button class="btn btn-danger" id="submit" style="float: right"
+								>Add
 									Comment</button>
 							</form>
 						</c:when>
@@ -492,10 +494,12 @@ img {
 	     });
 	}
 	 */
+	 
+	 
 
 	function deleteComments(loginUser, seq, comSeq) {		
 		var loginUser = loginUser;
-		var seq = seq;
+		var seq = seq; 
 		console.log("delcomments스트립트인입" + seq + comSeq + loginUser);
 		$.ajax({
 			type : 'post',
@@ -544,32 +548,7 @@ img {
 				}
 				$("#commentsList").empty();
                 $("#commentsList").append(html);	
-				
-				
-				
-				/*
-					<c:choose>
-						<c:when test="${loginInfo != null }">
-							<form action="/board/writeComments.board" method="post">
-								<input ng-model="Name"
-									Style="width: 40%; display: inline-block;" class="form-control"
-									placeholder="Write Your Name.. " name="text" class="comments11" />
-								<input type="hidden" name="seq" value=${dto.seq }>
-								<button class="btn btn-danger" id="submit" style="float: right">Add
-									Comment</button>
-							</form>
-						</c:when>
-						<c:otherwise>
-							<input ng-model="Name" Style="width: 40%; display: inline-block;"
-								class="form-control" placeholder="댓글은 로그인 이후 작성 가능합니다."
-								name="text" class="comments11" />
-							<input type="hidden" name="seq" value=${dto.seq }>
-
-						</c:otherwise>
-					</c:choose>
-				
-				*/
-				
+												
 				
 			},
 			error : function(jqXHR) {
@@ -581,6 +560,30 @@ img {
 	$("#back").on("click", function() {
 		location.href = "${pageContext.request.contextPath}/";
 	})
+	
+	$("#submit").on("click", function(){
+		console.log("일단클릭은됐음");
+		var datas = $("#insertForm").serialize(); 
+		
+		console.log(datas);
+		
+		$.ajax({
+			type : 'post',
+			url : "/board/writeComments.board",			
+			headers : {
+				"Content-Type" : "application/json"
+			},
+			dataType : 'json',
+			data : JSON.stringify({
+		          seq : datas.seq,
+		           text : datas.text,
+		           writer : datas.writer
+		        })				
+			})
+			
+		})
+
+	
 </script>
 
 </body>

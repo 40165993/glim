@@ -1,0 +1,3 @@
+REM INSERTING into FILELIST
+SET DEFINE OFF;
+Insert into FILELIST (BOARDSEQ,PHOTOSEQ,ORINAME,SYSNAME,FILEPATH) values (162,1,'filaepath','sysname','oriname');
