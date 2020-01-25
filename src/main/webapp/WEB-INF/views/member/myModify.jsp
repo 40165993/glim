@@ -178,7 +178,7 @@
             var cancelConfirm = confirm("정보 수정을 취소하시겠습니까?");
             
             if(cancelConfirm == true){
-                location.href="${pageContext.request.contextPath}/index";
+                location.href="${pageContext.request.contextPath}/";
             }
         });
    </script>

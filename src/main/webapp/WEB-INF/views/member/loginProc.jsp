@@ -12,10 +12,10 @@
 <script>
       if(${result} > 0){
          alert("로그인성공!");
-         location.href="${pageContext.request.contextPath}/member/loginProc.mem";
+         location.href="${pageContext.request.contextPath}/";
       }else{
          alert("아이디 혹은 비밀번호가 틀렸습니다.");
-         location.href="${pageContext.request.contextPath}/";
+         location.href="${pageContext.request.contextPath}/start.mem";
       }
    </script>
 

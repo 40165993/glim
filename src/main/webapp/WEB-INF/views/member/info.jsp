@@ -91,8 +91,9 @@ body, html {
 		
 
 			<div style="text-align: center">
-				<button id="toHome">To Home</button>
-				<button id="modify">To modify</button>
+				<button id="toHome">돌아가기</button>
+				<button id="modify">수정하기</button>
+				<button id="memberOut">탈퇴하기</button>
 			</div>
 
 		</div>
@@ -106,6 +107,12 @@ body, html {
       });
       $("#modify").on("click",function(){
          location.href="${pageContext.request.contextPath}/member/myModify.mem"
+      })
+       $("#memberOut").on("click",function(){
+    	   var cancelConfirm = confirm("탈퇴하시겠습니까?");
+    	   if(cancelConfirm == true){
+               location.href="${pageContext.request.contextPath}/member/memberOut.mem";
+           }
       })
    </script>
 

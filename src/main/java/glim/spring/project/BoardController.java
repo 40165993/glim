@@ -193,9 +193,14 @@ public class BoardController {
 	//게시글 삭제
 	@RequestMapping("/board/delete.board")
 	public String delete(String seq) {
-		
 		boardService.delete(seq);
 		return "index";
+	}
+	
+	//회원탈퇴시 게시글 삭제
+	@RequestMapping("/board/memberOutDelete.board")
+	public void memberOutDelete(String nickname) {
+		boardService.memberOutDelete(nickname);
 	}
 	
 	//게시글 수정
@@ -300,8 +305,10 @@ public class BoardController {
 	@RequestMapping("/board/writer.board")
 	public String writer(String nickname, Model model) {
 		MemberDTO id = (MemberDTO) session.getAttribute("loginInfo");
-		List<BoardDTO> writeList = boardService.writerPage(id.getNickname());//글목록
+		System.out.println("닉네임요?? " + nickname);
+		List<BoardDTO> writeList = boardService.writerPage(nickname);//글목록
 		MemberDTO dto = service.writerInfo(nickname);//작가소개
+		System.out.println("여기는요?" + dto.getNickname());
 		int isgudok = boardService.isgudok(nickname, id.getId());//구독여부확인
 		model.addAttribute("writeList", writeList);
 		model.addAttribute("dto", dto);
@@ -314,6 +321,8 @@ public class BoardController {
 	@RequestMapping("/board/gudok.board")
 	public String isgudok(String nickname) {
 		MemberDTO id = (MemberDTO) session.getAttribute("loginInfo");
+		System.out.println("실험1 : " + id.getId());
+		System.out.println("실험 2 : " + nickname);
 		boardService.gudokinsert(nickname, id.getId());
 		return "redirect:/board/writer.board?nickname="+nickname;
 	}

@@ -20,6 +20,7 @@ $(function(){
 })
 </script>
 
+
 </head>
 <body>
 <form action="writeProc.board" method = "post" enctype ="multipart/form-data" id="writeform">
@@ -34,7 +35,7 @@ $(function(){
 </select>
 <textarea style="display:none" name="text" id="text"></textarea>
 <div id="summernote"></div>
-<button type="submit" style="float:right">작성하기</button> 
+<button type="submit" style="float:right" class="btn">작성하기</button> 
 
 </form>
 

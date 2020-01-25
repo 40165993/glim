@@ -34,7 +34,7 @@ float:left;
 </form>
 
 <form action="/board/cancleGudok.board">
-<c:if test="${gudok >1 }">
+<c:if test="${gudok >0}">
 <input type="hidden" value="${dto.nickname }" name="nickname">
 <button id="clncleBtn">구독취소</button>
 </c:if>

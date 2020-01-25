@@ -67,7 +67,14 @@
           <div class="col-12 col-md-10 d-none d-xl-block">
             <nav class="site-navigation position-relative text-right" role="navigation">
 
-              <ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">              
+              <ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">     
+              
+              <c:if test="${loginInfo == null }">
+                   로그인 후 이용하실 수 있습니다.
+                    <li class="active"><a href="${pageContext.request.contextPath}/start.mem">로그인하기</a></li>
+                <li><a href="${pageContext.request.contextPath}/member/signUp.mem">회원가입하기</a></li>
+                   </c:if>
+                       
              <c:if test="${loginInfo ne null && loginInfo.id ne 'admin' && loginInfo.vanList == 'N' }">
             ${loginInfo.nickname}님 환영합니다.
                 <li class="active"><a href="/">Home</a></li>
@@ -103,11 +110,7 @@
                     <li class="active"><a href="${pageContext.request.contextPath}/member/logout.mem">로그아웃하기</a></li>
                    </c:if>
             
-                   <c:if test="${loginInfo == null }">
-                   로그인 후 이용하실 수 있습니다.
-                    <li class="active"><a href="${pageContext.request.contextPath}/start.mem">로그인하기</a></li>
-                <li><a href="${pageContext.request.contextPath}/member/signUp.mem">회원가입하기</a></li>
-                   </c:if>
+                   
                   </ul>
             
             </nav>

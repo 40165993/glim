@@ -33,6 +33,22 @@
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/style.css">
 
+<style>
+
+.mb-3{
+    text-align:center;
+    float:auto;
+    }
+    
+    .mb-3>p{
+    
+     text-align:center;
+    }
+     .mb-3>p>a{
+     font-size: 20px;
+     }
+    
+</style>
 </head>
 <body>
 
@@ -77,7 +93,7 @@
 							role="navigation">
 
 							<ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
-								<li class="active"><a href="work.html">Write</a></li>
+								<li class="active"><a href="/board/write.board">Write</a></li>
 								<li class="has-children"><a href="services.html">Category</a>
 									<ul class="dropdown">
 										<li><a href="/board/category.board?category=sisa">시사,이슈</a></li>
@@ -109,7 +125,7 @@
 
 
 	<div class="site-blocks-cover inner-page-cover overlay"
-		style="background-image: url(/resources/monmo.jpg);" 
+		style="background-image: url(/resources/sky.jpg);" 
 		data-stellar-background-ratio="0.5">
 		<div class="container">
 			<div
@@ -136,7 +152,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12 ml-auto">
-					<h3 class="mb-3">구독중인작가</h3>
+					<h3 class="mb-3">구독중인작가
 					<c:forEach var="list" items="${list }">
 					<p><a href="${pageContext.request.contextPath}/board/writer.board?nickname=${list.gudok}">${list.gudok}</a></p>
 					</c:forEach>
@@ -150,8 +166,7 @@
 		<div class="container">
 			<div class="row justify-content-center">
 				<div class="col-md-8 text-center">
-					<h2 class="text-black h1 site-section-heading text-center">Client
-						Says</h2>
+					<h2 class="text-black h1 site-section-heading text-center"></h2>
 				</div>
 			</div>
 
@@ -160,20 +175,16 @@
 					<div class="testimonial">
 
 						<blockquote class="mb-5">
-							<p>&ldquo;Lorem ipsum dolor sit amet consectetur adipisicing
-								elit. Consectetur unde reprehenderit aperiam quaerat fugiat
-								repudiandae explicabo animi minima fuga beatae illum eligendi
-								incidunt consequatur. Amet dolores excepturi earum unde
-								iusto.&rdquo;</p>
+							<p>&ldquo;어떤 주제에 대한 지식을 정리하기 위해서는 먼저 책을 읽고 관련분야의 전문가를 만나고 생각을 충분히 하는 과정이 필요하다. 여기에 한 가지를 더한다면 그것은 바로 글쓰기다.&rdquo;</p>
 						</blockquote>
 
 						<figure
 							class="mb-4 d-flex align-items-center justify-content-center">
 							<div>
-								<img src="images/person_3.jpg" alt="Image"
+								<img src="/resources/book.jpg" alt="Image"
 									class="w-50 img-fluid mb-3">
 							</div>
-							<p>John Smith</p>
+							<p>작가 공병호</p>
 						</figure>
 					</div>
 				</div>

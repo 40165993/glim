@@ -28,6 +28,11 @@ public class MemberDAO {
       return jdbc.selectOne("Member.overlap", id);
    }
    
+   //닉네임 중복체크
+   public int overlapNickname(String nickname) {
+	   return jdbc.selectOne("Member.overlapNickname", nickname);
+   }
+   
    //로그인
    public int loginOk(String id, String pw) {
       Map<String, String> param = new HashMap<>();

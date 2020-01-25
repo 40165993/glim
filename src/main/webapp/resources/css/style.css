@@ -331,6 +331,7 @@ h1, h2, h3, h4, h5,
         padding: 5px 20px;
         color: #000;
         display: inline-block;
+        font-size:20px;
         text-decoration: none !important; }
         .site-navbar .site-navigation .site-menu > li > a:hover {
           color: #0d0cb5; }
@@ -573,14 +574,15 @@ h1, h2, h3, h4, h5,
   background-position: center center; }
   .site-blocks-cover.overlay {
     position: relative; }
+    
     .site-blocks-cover.overlay:before {
       position: absolute;
       content: "";
       left: 0;
       bottom: 0;
       right: 0;
-      top: 0;
-      background: rgba(0, 0, 0, 0.4); }
+      top: 0;}
+      
   .site-blocks-cover .player {
     position: absolute;
     bottom: -250px;

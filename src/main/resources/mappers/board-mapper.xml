@@ -63,6 +63,10 @@
 	delete from gudok where id=#{id} and gudok=#{nickname}
 	</delete>
 	
+	<delete id="memberOutDelete">
+	delete from writeBoard where nickname=#{nickname}
+	</delete>
+	
 	<select id="gudokList" resultType="glim.spring.dto.GudokDTO">
 	select * from gudok where id=#{id}
 	</select>

@@ -82,6 +82,16 @@ public class BoardService {
 		}
 	}
 	
+	//회원탈퇴시 게시글삭제
+	public void memberOutDelete(String nickname) {
+		try {
+			boarddao.memberOutDelete(nickname);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	//게시글 수정
 	public void update(BoardDTO boarddto) {
 		try {

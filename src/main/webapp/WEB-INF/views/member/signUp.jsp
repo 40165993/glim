@@ -102,7 +102,8 @@ position: absolute;
             
             
             <label for="nickname">닉네임 : </label>
-            <input type="text" id="nickname" name="nickname" size="20" >
+            <input type="text" id="nickname" name="nickname" size="20" ><br>
+             <span id="nicknameCheck"></span>
             <br><br>
             
             
@@ -144,6 +145,7 @@ position: absolute;
       var valid_pwre = 0;
       var valid_name = 0;
       var valid_phone = 0;
+      var nickname = 0;
    
       $("#id").on("keyup", function(){
          var regex = /^[a-z0-9]{5,15}$/g;
@@ -184,6 +186,43 @@ position: absolute;
             valid_id = 0;
          }
       });
+      
+      
+      $("#nickname").on("keyup", function(){
+          var regex = /^[a-z0-9]{5,15}$/g;
+          var nickname = $("#nickname").val();
+          var result = regex.exec(nickname);
+          
+          if(result != null){
+             $("#nicknameCheck").html("");
+             
+             $("#nickname").on("blur", function(){
+                
+                $.ajax({
+                   url:"${pageContext.request.contextPath}/member/overlapNickname.mem",
+                   type:"post",
+                   data:{
+                      nickname: $("#nickname").val()
+                   },
+                   dataType:"json"
+                }).done(function(data){
+                   if(data.result == 1){
+                      $("#nicknameCheck").html("중복된 닉네임입니다.").css("color", "red");
+                      valid_id = 0;
+                   }
+                   else{
+                      $("#nicknameCheck").html("사용가능한 닉네임입니다.").css("color", "green");
+                      valid_id = 1;
+                   }                  
+                }).fail(function(a, b, c){
+                   console.log(a);
+                   console.log(b);
+                   console.log(c);
+                   alert("비동기 통신 실패!");
+                });
+             });
+          }
+       });
       
       $("#pw").on("input", function(){
          var pw_regex = /^[A-Za-z0-9!@#$%^&*]{8,20}$/g;
@@ -235,6 +274,8 @@ position: absolute;
          }
       });
       
+      
+     
       $("#phone").on("input", function(){
          var phone_regex = /^0\d{2}\d{3,4}\d{4}$/g;
          var phone = $("#phone").val();
@@ -268,6 +309,7 @@ position: absolute;
          $("#pwreCheck").html("");
          $("#nameCheck").html("");
          $("#phoneCheck").html("");
+         $("#nicknameCheck").html("");
       });
    </script>
 </body>

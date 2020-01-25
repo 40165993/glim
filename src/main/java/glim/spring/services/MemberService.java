@@ -35,6 +35,11 @@ public class MemberService {
       return dao.overlap(id);
    }
    
+   //닉네임중복체크
+   public int overlapNickname(String nickname) {
+	   return dao.overlapNickname(nickname);
+   }
+   
    //로그인
    public int loginOk(String id, String pw) {
       int result = dao.loginOk(id, pw);

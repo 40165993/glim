@@ -4,6 +4,15 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+#write{
+width: 5%;
+font-size:15px;
+height:20%;
+border-radius:10%;
+background-color: #ede9e8;
+}
+</style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
@@ -39,7 +48,10 @@
 
 	</table>
 	<form action="/board/write.board" method="post">
-	<button id="write">글쓰기</button>
+	<br><br>
+	<c:if test="${loginInfo != null }">
+	<button id="write" style="float:right">글쓰기</button>
+	</c:if>
 </form>
 	<script>
 		$(document).ready(function() {

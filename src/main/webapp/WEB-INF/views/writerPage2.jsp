@@ -19,6 +19,18 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/aos.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css">
     
+    
+    <style>
+    .mb-3{
+    text-align:center;
+    float:auto;
+    }
+    
+    .mb-3>a{
+    font-size: 30px;
+    }
+    
+    </style>
   </head>
   <body>
   
@@ -56,13 +68,13 @@
         <div class="row align-items-center">
           
           <div class="col-11 col-xl-2">
-            <h1 class="mb-0 site-logo"><a href="index.html" class="text-black h2 mb-0">Glim</a></h1>
+            <h1 class="mb-0 site-logo"><a href="/" class="text-black h2 mb-0">Glim</a></h1>
           </div>
           <div class="col-12 col-md-10 d-none d-xl-block">
             <nav class="site-navigation position-relative text-right" role="navigation">
 
              <ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
-								<li class="active"><a href="work.html">Write</a></li>
+								<li class="active"><a href="/board/board.write">Write</a></li>
 								<li class="has-children"><a href="services.html">Category</a>
 									<ul class="dropdown">
 										<li><a href="/board/category.board?category=sisa">시사,이슈</a></li>
@@ -73,6 +85,7 @@
 												탐구</a></li>
 										<li><a href="/board/category.board?category=IT">IT</a></li>
 									</ul></li>
+									 <li><a href="${pageContext.request.contextPath}/member/membergudok.mem">구독중인작가</a></li>
 							</ul>
             </nav>
           </div>
@@ -89,7 +102,7 @@
 
   
 
-    <div class="site-blocks-cover inner-page-cover overlay" style="background-image: url(images/hero_1.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
+    <div class="site-blocks-cover inner-page-cover overlay" style="background-image: url(/resources/sky22.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
       <div class="container">
         <div class="row align-items-center justify-content-center text-center">
 
@@ -97,8 +110,8 @@
                         
             <div class="row justify-content-center mb-4">
               <div class="col-md-8 text-center">
-                <h1>Illustration Cignal</h1>
-                <p class="lead mb-5">Design, Illustrator</p>
+               <h3>${dto.nickname }</h3>
+                <p class="lead mb-5">${dto.writerInfo }</p>
               </div>
             </div>
 
@@ -116,7 +129,7 @@
           <div class="col-md-12 ml-auto">
           <c:forEach var="writeList" items="${writeList }">
 
-<h3 class="mb-3"><a href="${pageContext.request.contextPath}/board/detail.board?seq=${writeList.seq}">${writeList.title }</a></h3>
+<h3 class="mb-3" ><a href="${pageContext.request.contextPath}/board/detail.board?seq=${writeList.seq}">${writeList.title }</a></h3>
 
 </c:forEach>
           </div>
@@ -142,7 +155,7 @@
               </blockquote>
 
               <figure class="mb-4 d-flex align-items-center justify-content-center">
-                <div><img src="/resources/monmo.jpg" alt="Image" class="w-50 img-fluid mb-3"></div>
+                <div><img src="/resources/sky.jpg" alt="Image" class="w-50 img-fluid mb-3"></div>
                 <p>${dto.nickname }</p>
               </figure>
             </div>
@@ -159,18 +172,16 @@
 </c:if>
 </div>
 </form>
-</c:if>
-
- <c:if test="${dto.nickname != loginInfo.nickname }">
 <form action="/board/cancleGudok.board">
 <div id="gudokDiv" style="text-align:center">
-<c:if test="${gudok >1 }">
+<c:if test="${gudok >0 }">
 <input type="hidden" value="${dto.nickname }" name="nickname" id="nickname2">
 <button id="clncleBtn">구독취소</button>
 </c:if>
 </div>
 </form>
 </c:if>
+
     </section>
     
     
@@ -259,6 +270,7 @@
  
  
  <script>
+ /*
   $("#gudokBtn").on("click",function(){
 	  $.ajax({
 		  url:"/board/gudok.board",
@@ -273,6 +285,7 @@
 	  });
 	  
   })
+  */
  
  </script>
     

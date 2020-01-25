@@ -39,18 +39,14 @@ public class MemberController {
       return "/member/signUp";
    }
    
+   //회원가입
    @RequestMapping("/signUpProc.mem")
    public String signUpPorc(MemberDTO dto, Model model) {
      System.out.println("signUpPorc 잘도착");
     int insert = service.signUpInsert(dto);
-      if(insert>0) {
-    	  session.setAttribute("loginInfo", dto);
           List<BoardDTO> list = boardService.selectAll();
     		model.addAttribute("list", list);
              return "index";
-      }else {
-          return "error";
-      }
    }
    //아이디 중복체크
    @RequestMapping(value="/overlap.mem",produces="text/html; charset=UTF-8")
@@ -62,24 +58,31 @@ public class MemberController {
       return "{\"result\":" + result + "}";
    }
    
+   //닉네임중복체크
+   @RequestMapping(value="overlapNickname.mem", produces="text/html; charset=UTF-8")
+   @ResponseBody
+   public String overlapNickname(String nickname) {
+   int result = service.overlapNickname(nickname);
+   return "{\"result\":" + result + "}";}
+   
+   
    
    //로그인
    @RequestMapping("login.mem")
       public String login(String id, String pw, Model model) { 
-	  MemberDTO dto = service.myInfo(id);//내정보저장
-	  service.loginOk(id, pw);
-      session.setAttribute("loginInfo", dto);
+	   int result = service.loginOk(id, pw);
+	   System.out.println("결과는 :  " + result);
+	   if(result ==1 ) {
+	   MemberDTO dto = service.myInfo(id);//내정보저장
+      session.setAttribute("loginInfo", dto);}
       List<BoardDTO> list = boardService.selectAll();//
-	model.addAttribute("list", list);
-         return "index";
+      model.addAttribute("list", list);
+      model.addAttribute("result", result);
+         return "/member/loginProc";
       }
     
    
-   @RequestMapping("loginProc.mem")
-   public String loginProc( Model model) {	
-	   return "index";
-	   
-   }
+  
    //로그아웃
    @RequestMapping("logout.mem")
       public String logout(String id, Model model) {
@@ -114,11 +117,12 @@ public class MemberController {
    @RequestMapping("/memberOut.mem")
    public String memberOut(Model model) {
       System.out.println("memberOut 도착");
-      String id = (String)session.getAttribute("loginInfo");
-      String result = service.memberOut(id);
+      MemberDTO id = (MemberDTO)session.getAttribute("loginInfo");
+      String result = service.memberOut(id.getId());
+      boardService.memberOutDelete(id.getNickname());
       session.invalidate();
       model.addAttribute("result",result);
-      return "/member/memberOut";
+      return "index";
    }
    
    

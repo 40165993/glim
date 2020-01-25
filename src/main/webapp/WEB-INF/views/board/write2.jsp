@@ -100,7 +100,7 @@
 				<div class="row align-items-center">
 					<div class="col-11 col-xl-2">
 						<h1 class="mb-0 site-logo">
-							<a href="index.html" class="text-black h2 mb-0">Glim</a>
+							<a href="/" class="text-black h2 mb-0">Glim</a>
 						</h1>
 					</div>
 					<div class="col-12 col-md-10 d-none d-xl-block">
@@ -140,9 +140,9 @@
 
 
 	<div class="site-blocks-cover inner-page-cover overlay"
-		style="background-image: url(/resources/monmo2.jpg);" 			
-		data-stellar-background-ratio="0.5">	
-		
+		style="background-image: url(/resources/window2.jpg);" 			
+		data-stellar-background-ratio="0.2" style="background : none">	
+	
 		<div class="container">
 			<div
 				class="row align-items-center justify-content-center text-center">

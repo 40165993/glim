@@ -116,6 +116,17 @@ img {
 	display: inline;
 	width: 50%;
 }
+
+.btns{
+font-size : 15px;
+text-align:auto;
+margin : auto;
+float:right;
+}
+
+.row>a{
+font-size:20px;
+}
 </style>
 </head>
 <body>
@@ -193,7 +204,7 @@ img {
 
 
 	<div class="site-blocks-cover inner-page-cover overlay"
-		style="background-image: url(images/hero_1.jpg);"
+		style="background-image: url(/resources/book2.jpg);"
 		data-stellar-background-ratio="0.5">
 		<div class="container">
 			<div
@@ -224,24 +235,24 @@ img {
 					<p>${dto.text }</p>
 				</div>
 			</div>
-
+<br><br><br>
 
 			<form action="/board/update.board" method="post">
-				<c:if test="${loginInfo != null }">
+				<c:if test="${loginInfo != null  && loginInfo.nickname == dto.nickname }">
 					<input type="hidden" name="seq" value=${dto.seq }>
 					<input type="hidden" name="category" value="${dto.category }">
-					<button id=updateArticle>수정하기</button>
+					<button class="btns" id=updateArticle >수정하기</button>
 				</c:if>
 			</form>
 
 
 			<form action="/board/delete.board" method="post">
-				<c:if test="${loginInfo != null }">
+				<c:if test="${loginInfo != null  && loginInfo.nickname == dto.nickname }">
 					<input type="hidden" name="seq" value=${dto.seq }>
-					<button id="deletearticle" style="float: left">삭제하기</button>
+					<button  class="btns" id="deletearticle">삭제하기</button>
 				</c:if>
 			</form>
-			<button id="back">돌아가기</button>
+			<button  class="btns" id="back">돌아가기</button>
 
 
 

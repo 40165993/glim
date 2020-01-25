@@ -90,6 +90,10 @@ public class BoardDAO {
 		return jdbc.delete("board.delete", seq);
 	}
 	
+	//회원탈퇴시 게시글삭제
+	public int memberOutDelete(String nickname)throws Exception{
+		return jdbc.delete("board.memberOutDelete", nickname);
+	}
 	//게시글수정
 	public int update(BoardDTO boarddto)throws Exception{
 		Map<String, String> param = new HashMap<>();
