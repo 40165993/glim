@@ -178,9 +178,8 @@ public class BoardService {
 	}
 	
 	//댓글작성
-	public void insert(CommentsDTO commentsdto, int seq) throws Exception{
-		commentsdao.insert(commentsdto, seq);
-	}
+	public void insert(CommentsDTO commentsdto) throws Exception{
+		commentsdao.insert(commentsdto);}
 	
 	public List<CommentsDTO> selectCommentsSeq(int seq){
 		List<CommentsDTO> commentslist = null;

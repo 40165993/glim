@@ -5,14 +5,31 @@
 <html>
 <head>
 <style>
-#write{
-width: 5%;
-font-size:15px;
-height:20%;
-border-radius:10%;
-background-color: #ede9e8;
+
+
+#write {
+    margin-top: 50px;
+    margin-bottom: 100px;
+    padding: 10px;
+    width: 150px;
+    border: 0;
+    border-radius: 10px;
+    box-shadow: 1px 5px 20px -5px rgba(0, 0, 0, 0.4);
+    color: #56453c;
+    background-color: #d1d6d4;
+    cursor: pointer;
+    text-align: center;
+    letter-spacing: 1px;
+    transition: 0.3s ease;
+    font-size: 15px;
 }
+#write:hover {
+  box-shadow: 1px 5px 25px -4px rgba(0, 0, 0, 0.6);
+}
+
+
 </style>
+
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>

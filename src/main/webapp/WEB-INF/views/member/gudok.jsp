@@ -125,7 +125,7 @@
 
 
 	<div class="site-blocks-cover inner-page-cover overlay"
-		style="background-image: url(/resources/sky.jpg);" 
+		style="background-image: url(/resources/book3.jpg);" 
 		data-stellar-background-ratio="0.5">
 		<div class="container">
 			<div

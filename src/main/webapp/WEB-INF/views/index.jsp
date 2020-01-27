@@ -77,8 +77,8 @@
                        
              <c:if test="${loginInfo ne null && loginInfo.id ne 'admin' && loginInfo.vanList == 'N' }">
             ${loginInfo.nickname}님 환영합니다.
-                <li class="active"><a href="/">Home</a></li>
-                <li><a href="${pageContext.request.contextPath}/member/myInfo.mem">내 정보보기</a></li>
+                <li class="active">
+                <li class="active"><a href="${pageContext.request.contextPath}/member/myInfo.mem">내 정보보기</a></li>
                     <li><a href="${pageContext.request.contextPath}/member/logout.mem">로그아웃</a></li>
                           <li><a href="${pageContext.request.contextPath}/board/write.board">글쓰기</a></li>
                 <li class="has-children">

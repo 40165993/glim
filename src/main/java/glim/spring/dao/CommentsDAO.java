@@ -20,9 +20,9 @@ public class CommentsDAO {
 	
 	
 	//댓글작성
-	public int insert(CommentsDTO commentsdto, int seq)throws Exception{
+	public int insert(CommentsDTO commentsdto)throws Exception{
 		Map<String, String> param = new HashMap<>();
-		param.put("seq", seq+"");
+		param.put("seq", commentsdto.getBoardSeq()+"");
 		param.put("writer", commentsdto.getWriter());
 		param.put("text", commentsdto.getText());
 		System.out.println(param);

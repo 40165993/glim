@@ -9,7 +9,8 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -107,6 +108,12 @@
 	float: left;
 }
 
+#submit{
+width: 200px;
+    height: 40px;
+    font-size: 15px;
+}
+
 img {
 	width: 100%;
 	height: 30%;
@@ -117,11 +124,24 @@ img {
 	width: 50%;
 }
 
-.btns{
-font-size : 15px;
-text-align:auto;
-margin : auto;
-float:right;
+.btns {
+    margin-top: 50px;
+    margin-bottom: 100px;
+    margin-left: 20px;
+    padding: 10px;
+    width: 150px;
+    border: 0;
+    border-radius: 10px;
+    box-shadow: 1px 5px 20px -5px rgba(0, 0, 0, 0.4);
+    color: #8a8887;
+    background-color: #e3e1de;
+    cursor: pointer;
+    text-align: center;
+    letter-spacing: 1px;
+    transition: 0.3s ease;
+    float: right;
+    font-size: 18px;
+    font-weight: bold;
 }
 
 .row>a{
@@ -172,8 +192,8 @@ font-size:20px;
 							role="navigation">
 
 							<ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
-								<li class="active"><a href="work.html">Write</a></li>
-								<li class="has-children"><a href="services.html">Category</a>
+								<li class="active"><a href="${pageContext.request.contextPath}/board/write.board">Write</a></li>
+								<li class="has-children"><a href="/board.board">Category</a>
 									<ul class="dropdown">
 										<li><a href="/board/category.board?category=sisa">시사,이슈</a></li>
 										<li><a href="/board/category.board?category=inmun">인문학,철학</a></li>
@@ -308,14 +328,13 @@ font-size:20px;
 					<b>New Comment</b><br /> <br>
 					<c:choose>
 						<c:when test="${loginInfo != null }">
-							<form id="insertForm" onsubmit="return false;">
+							<form action="/board/writeComments.board">
 								<input ng-model="Name"
 									Style="width: 80%; display: inline-block;" class="form-control"
-									placeholder="Write Your Name.. " name="text" class="comments11" />
+									placeholder="댓글을 입력해주세요" name="text" class="comments11" />
 								<input type="hidden" name="seq" value="${dto.seq }">
 								<input type="hidden" name="loginUser" value="${loginInfo.nickname}">
-								<button class="btn btn-danger" id="submit" style="float: right"
-								>Add
+								<button class="btn btn-danger" id="submit" style="float: right">Add
 									Comment</button>
 							</form>
 						</c:when>
@@ -323,7 +342,6 @@ font-size:20px;
 							<input ng-model="Name" Style="width: 40%; display: inline-block;"
 								class="form-control" placeholder="댓글은 로그인 이후 작성 가능합니다."
 								name="text" class="comments11" />
-							<input type="hidden" name="seq" value=${dto.seq }>
 
 						</c:otherwise>
 					</c:choose>
@@ -572,11 +590,13 @@ font-size:20px;
 		location.href = "${pageContext.request.contextPath}/";
 	})
 	
+	
+	/*
 	$("#submit").on("click", function(){
 		console.log("일단클릭은됐음");
 		var datas = $("#insertForm").serialize(); 
-		
 		console.log(datas);
+		console.log()
 		
 		$.ajax({
 			type : 'post',
@@ -586,14 +606,14 @@ font-size:20px;
 			},
 			dataType : 'json',
 			data : JSON.stringify({
-		          seq : datas.seq,
-		           text : datas.text,
-		           writer : datas.writer
+		          boardSeq : seq,
+		           text : text,
+		           writer :writer
 		        })				
 			})
 			
 		})
-
+*/
 	
 </script>
 

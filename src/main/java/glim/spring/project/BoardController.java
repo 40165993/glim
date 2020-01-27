@@ -63,7 +63,7 @@ public class BoardController {
 		System.out.println(category);
 		List<BoardDTO> list = boardService.selectCategory(category);
 		model.addAttribute("list", list);
-		return "/board/list";
+		return "/board/list2";
 	}
 	
 	//카테고리별 카드 
@@ -86,7 +86,7 @@ public class BoardController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "/board/list";
+		return "/board/list2";
 	}
 
 
@@ -232,17 +232,20 @@ public class BoardController {
 
 	//댓글작성
 	@RequestMapping("/board/writeComments.board")
-	public String writeComments(CommentsDTO commentsdto, int seq) {
+	public String writeComments(int seq, String text) {
 		try {
 			System.out.println("여기까진옴");
 			MemberDTO loginInfo = (MemberDTO) session.getAttribute("loginInfo");
 			commentsdto.setWriter(loginInfo.getNickname());
-			boardService.insert(commentsdto, seq);
+			commentsdto.setBoardSeq(seq);
+			commentsdto.setText(text);
+			boardService.insert(commentsdto);
+			System.out.println(commentsdto.getBoardSeq()  + commentsdto.getText() + commentsdto.getWriter());
 		} catch (Exception e) {
 			// TODO Auto-generated dk			catch block
 			e.printStackTrace();
 		}
-		return "redirect:/board/detail.board?seq="+seq;
+		return "redirect:/board/detail.board?seq=" + seq;
 	}
 
 

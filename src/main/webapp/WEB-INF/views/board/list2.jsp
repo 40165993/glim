@@ -30,7 +30,50 @@
     font-size: 30px;
     }
     
+    #example{
+    text-align:center;
+    margin-left : 10%;
+    font-size : 15px;
+    margin-bottom:15%;
+    }
+    
+    .site-blocks-cover{
+    z-index:-10;
+    }
+    
+    
+#write {
+    margin-top: 50px;
+    margin-bottom: 100px;
+    padding: 10px;
+    width: 150px;
+    border: 0;
+    border-radius: 10px;
+    box-shadow: 1px 5px 20px -5px rgba(0, 0, 0, 0.4);
+    color: #56453c;
+    background-color: #d1d6d4;
+    cursor: pointer;
+    text-align: center;
+    letter-spacing: 1px;
+    transition: 0.3s ease;
+    font-size: 15px;
+}
+#write:hover {
+  box-shadow: 1px 5px 25px -4px rgba(0, 0, 0, 0.6);
+}
+
+    
     </style>
+    
+    
+    <meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8"
+	src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+    
   </head>
   <body>
   
@@ -73,7 +116,7 @@
           <div class="col-12 col-md-10 d-none d-xl-block">
             <nav class="site-navigation position-relative text-right" role="navigation">
 
-             <ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
+             <ul class="site-menu js-clone-nav mr-auto d-none d-lg-block" >
 								<li class="active"><a href="/board/board.write">Write</a></li>
 								<li class="has-children"><a href="/board.board">Category</a>
 									<ul class="dropdown">
@@ -94,15 +137,8 @@
           <div class="d-inline-block d-xl-none ml-md-0 mr-auto py-3" style="position: relative; top: 3px;"><a href="#" class="site-menu-toggle js-menu-toggle text-black"><span class="icon-menu h3"></span></a></div>
 
           </div>
-
-        </div>
-      </div>
-      
-    </header>
-
-  
-
-    <div class="site-blocks-cover inner-page-cover overlay" style="background-image: url(/resources/sky22.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
+          
+          <div class="site-blocks-cover inner-page-cover overlay" style="background-image: url(/resources/sky22.jpg);" data-aos="fade" data-stellar-background-ratio="0.5" style="margin-top:20%">
       <div class="container">
         <div class="row align-items-center justify-content-center text-center">
 
@@ -120,70 +156,52 @@
       </div>
     </div>  
     
-    
+    <form action="/board/write.board" method="post">
+	<br><br>
+	<c:if test="${loginInfo != null }">
+	<button id="write" style="float:right">글쓰기</button>
+	</c:if>
+</form>
 
-    
-    <section class="site-section border-bottom">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12 ml-auto">
-          <c:forEach var="writeList" items="${writeList }">
-
-<h3 class="mb-3" ><a href="${pageContext.request.contextPath}/board/detail.board?seq=${writeList.seq}">${writeList.title }</a></h3>
-
-</c:forEach>
-          </div>
         </div>
       </div>
-    </section>
+  
+  <table id="example" class="display" style="width: 80%" >
+		<thead>
+			<tr style="font-weight : 20px">
+				<th>글 번호</th>
+				<th>글 제목</th>
+				<th>글쓴이</th>
+				<th>작성날짜</th>
+				<th>조회수</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach var="list" items="${list}">
+				<tr>
+					<td>${list.seq }</td>
+					<td><a href="${pageContext.request.contextPath}/board/detail.board?seq=${list.seq}">${list.title }</a>
+					<td><a href="${pageContext.request.contextPath}/board/writer.board?nickname=${list.nickname}">${list.nickname }</td>
+					<td>${list.writeDate }</td>
+					<td>${list.views }</td>
+				</tr>
+			</c:forEach>
+		</tbody>
+		<br><br><br>
+		
+		
+		
 
+	</table>
+	
+	<script>
+		$(document).ready(function() {
+			$('#example').DataTable();
+		});
 
-    <section class="site-section testimonial-wrap">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-md-8 text-center">
-            <h2 class="text-black h1 site-section-heading text-center">작가소개</h2>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-12">
-            <div class="testimonial">
-              
-              <blockquote class="mb-5">
-                <p>&ldquo;${dto.writerInfo }&rdquo;</p>
-              </blockquote>
-
-              <figure class="mb-4 d-flex align-items-center justify-content-center">
-                <div><img src="/resources/sky.jpg" alt="Image" class="w-50 img-fluid mb-3"></div>
-                <p>${dto.nickname }</p>
-              </figure>
-            </div>
-          </div>
-        </div>
-      </div>
-      
- <c:if test="${dto.nickname != loginInfo.nickname }">
-<form action="/board/gudok.board">
-<div id="gudokDiv" style="text-align:center">
-<c:if test="${gudok < 1 }">
-<input type="hidden" value="${dto.nickname }" name="nickname" id="nickname">
-<button id="gudokBtn" style="text-align:center">구독하기</button>
-</c:if>
-</div>
-</form>
-<form action="/board/cancleGudok.board">
-<div id="gudokDiv" style="text-align:center">
-<c:if test="${gudok >0 }">
-<input type="hidden" value="${dto.nickname }" name="nickname" id="nickname2">
-<button id="clncleBtn">구독취소</button>
-</c:if>
-</div>
-</form>
-</c:if>
-
-    </section>
-    
+	</script>
+</body>
+    <br><br><br>
     
     <footer class="site-footer">
       <div class="container">
