@@ -14,8 +14,8 @@
 
 <style>
 img{
-width:100%;
-height:30%;
+width:80%;
+height:10%;
 over-flow:hidden;
 }
 </style>
@@ -53,7 +53,7 @@ $(function(){
     $('#summernote').summernote({
         placeholder: 'Hello bootstrap 4',
         tabsize: 2,
-        height: 100,
+        height: 500,
         callbacks: {
         	 onImageUpload: function(files) {
         	   var data = new FormData();
