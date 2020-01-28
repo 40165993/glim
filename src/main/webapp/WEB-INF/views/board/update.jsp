@@ -39,6 +39,7 @@ over-flow:hidden;
   box-shadow: 1px 5px 25px -4px rgba(0, 0, 0, 0.6);
 }
 
+
 </style>
 <script>
 
@@ -73,9 +74,9 @@ $(function(){
 		<form action="updateProc.board" method = "post" accept-charset="utf-8" id="writeform">	
 	<br><br>
 					<h3 class="mb-3">글 수정하기</h3>
-<input type = "text" name = "title" placeholder="제목" value="${dto.title }">
+<input type = "text" name = "title" placeholder="제목" id="title" value="${dto.title }">
 <input type="hidden" name="seq" value="${dto.seq }">
-<select name="category">
+<select name="category" id=category>
 <option value="">카테고리선택</option>
  <option value="sisa">시사,이슈</option>
     <option value="inmun">인문학,철학</option>
@@ -180,6 +181,33 @@ $(function(){
         	   }
           }
       });
+    
+    
+    
+    $("#write").on("click", function(){
+    	console.log("여기");
+    	var category = $('#category').val();
+    	var text = $(".note-editable").html()
+    	var title = $('#title').val();
+    	
+    	console.log(text);
+    	console.log(title);
+    	console.log(category);
+    	
+    	if(category== ""){
+          alert("카테고리를 선택해주세요.");
+          return false;
+       }else if(title == ""){
+    	   alert("제목을 입력해주세요.");
+    	   return false;
+       }else if(text == "<p><br></p>"){
+    	   alert("내용을 입력해주세요.");
+    	   return false;
+       }else{
+          return confirm("글을 수정하시겠습니까?");
+       }
+    })
+     
    
 
       

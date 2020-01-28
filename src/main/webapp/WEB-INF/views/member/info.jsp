@@ -145,7 +145,7 @@
 		<div class="row">
 			<div class="col-md-70 mb-5">
 
-				<form action="#" class="p-5 bg-white">
+				<div class="p-5 bg-white">
 
 					<h2 class="h4 text-black mb-5">My Info</h2>
 
@@ -169,7 +169,7 @@
 					</div>
 					<div class="row form-group">
 						<div class="col-md-12">
-							<label class="text-black" for="birth">생일</label>
+							<label class="text-black" for="birth">생년월일</label>
 							<input type="text" class="form-control" id="birth" name="birth" size="20" value="${result.birth}" readonly>
 						</div>
 					</div>
@@ -182,18 +182,39 @@
 					<div class="row form-group">
 						<div class="col-md-12">
 							<label class="text-black" for="message">작가소개</label>
-							<textarea name="message" class="form-control" id="message" cols="30" rows="7" value="메세지가 없습니다" readonly>${result.phone}</textarea>
+							<textarea name="message" class="form-control" id="message" cols="30" rows="7" value="${result.writerInfo}" readonly></textarea>
 						</div>
 					</div>
 
 					<div class="row form-group">
 						<div class="col-md-12">
-							<input type="submit" value="수정하기" class="btn btn-primary btn-md text-white">
+							<button id="toHome" onclick="toHome()" value="메인으로" class="btn btn-primary btn-md text-white">메인으로</button>
+							<button id="modify"  onclick="modify()" value="수정하기" class="btn btn-primary btn-md text-white">수정하기</button>
+							<button id="memberOut" onclick="memberOut()" value="회원탈퇴" class="btn btn-primary btn-md text-white">회원탈퇴</button>
 						</div>
 					</div>
-				</form>
+
+					<script>
+						function toHome(){
+							location.href="${pageContext.request.contextPath}/";
+						}
+						function modify(){
+							location.href="${pageContext.request.contextPath}/member/myModify.mem"
+						}
+						function memberOut(){
+							var cancelConfirm = confirm("탈퇴하시겠습니까?");
+							if(cancelConfirm == true){
+								location.href="${pageContext.request.contextPath}/member/memberOut.mem";
+							}
+						}
+					</script>
+				</div>
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
+
+
+
 <%@include file="../footer.jsp" %>

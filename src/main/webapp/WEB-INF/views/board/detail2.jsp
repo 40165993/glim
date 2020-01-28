@@ -146,6 +146,7 @@ img {
 
 
 
+
 </style>
 </head>
 <body>
@@ -262,7 +263,7 @@ img {
 							<form action="/board/writeComments.board">
 								<input ng-model="Name"
 									Style="width: 80%; display: inline-block;" class="form-control"
-									placeholder="댓글을 입력해주세요" name="text" class="comments11" />
+									placeholder="댓글을 입력해주세요" name="text" class="comments11" id="commentsA" />
 								<input type="hidden" name="seq" value="${dto.seq }">
 								<input type="hidden" name="loginUser" value="${loginInfo.nickname}">
 								<button class="btn btn-danger" id="submit" style="float: right">Add
@@ -442,6 +443,13 @@ img {
 
 	$("#back").on("click", function() {
 		location.href = "${pageContext.request.contextPath}/board.board";
+	})
+	
+	$("#submit").on("click", function(){
+		var text = $('#commentsA').val();
+		if(text==""){
+			alert("내용을 입력해주세요.");
+		}
 	})
 	
 	
