@@ -85,6 +85,14 @@ public class BoardDAO {
 		return jdbc.selectList("board.selectNickname", nickname);
 	}
 	
+	//회원정보 수정시 썼던 글 닉네임 변경
+	public int changeNickname(String nickname, String newNickname) {
+		Map<String, String> param = new HashMap<>();
+		param.put("nickname", nickname);
+		param.put("newNickname", newNickname);
+		return jdbc.update("board.changeNickname",param);
+	}
+	
 	//게시글삭제
 	public int delete(String seq)throws Exception{
 		return jdbc.delete("board.delete", seq);

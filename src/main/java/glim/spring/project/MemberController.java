@@ -142,9 +142,10 @@ public class MemberController {
    @RequestMapping("/myModifyProc.mem")
    public String myModifyProc(MemberDTO dto, Model model) {
 	   MemberDTO loginInfo = (MemberDTO) session.getAttribute("loginInfo");
-	  boardService.selectNickname(dto.getNickname());
-      int result  = service.myModifyProc(dto, loginInfo.getId());
-      
+	   int result  = service.myModifyProc(dto, loginInfo.getId());
+	   System.out.println("변경전 닉네임" + loginInfo.getNickname());
+	   System.out.println("변경 후 닉네임" + dto.getNickname());
+	  boardService.changeNickname(loginInfo.getNickname(), dto.getNickname());
       model.addAttribute("result", result);
       return "/member/modifyCheck";
    }

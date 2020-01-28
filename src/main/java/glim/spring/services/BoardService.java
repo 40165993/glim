@@ -103,13 +103,20 @@ public class BoardService {
 	}
 	
 	//닉네임으로 쓴 글 불러오기
-	public void selectNickname(String nickname) {
+	public List<BoardDTO> selectNickname(String nickname) {
+		List<BoardDTO> nicknameList = null;
 		try {
-			boarddao.selectNickname(nickname);
+			nicknameList = boarddao.selectNickname(nickname);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return nicknameList;
+	}
+	
+	//회원정보수정시 썼던 글 닉네임 변경
+	public void changeNickname(String nickname, String newNickname) {
+		boarddao.changeNickname(nickname, newNickname);
 	}
 	
 	//파일 업로드

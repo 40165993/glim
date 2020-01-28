@@ -38,9 +38,17 @@
 	select * from writeBoard where category=#{category}
 	</select>
 	
+	
+	<!-- 닉네임으로 쓴 글 목록 뽑기 -->
 	<select id="selectNickname" resultType="glim.spring.dto.BoardDTO">
 	select * from writeBoard where nickname=#{nickname}
 	</select>
+	
+	<!-- 닉네임 변경시 썼던글 닉네임 변경 -->
+	<update id="changeNickname" parameterType="glim.spring.dto.MemberDTO">
+	update writeBoard set nickname=#{newNickname} where nickname=#{nickname}
+	</update>
+	
 	
 	<select id="delete">
 	delete from writeBoard where seq=#{seq}
