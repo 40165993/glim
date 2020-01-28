@@ -105,7 +105,7 @@
 <div id="gudokDiv" style="text-align:center">
 <c:if test="${gudok < 1 }">
 <input type="hidden" value="${dto.nickname }" name="nickname" id="nickname">
-<button id="gudokBtn" style="text-align:center">구독하기</button>
+<button id="gudokBtn" style="text-align:center" onsubmit="gudok()">구독하기</button>
 </c:if>
 </div>
 </form>
@@ -120,6 +120,7 @@
 </c:if>
 
     </section>
+    
     
    <%@include file="footer.jsp" %>
         <div class="row pt-5 mt-5 text-center">

@@ -79,7 +79,8 @@ h1, h2, h3, h4, h5, h6 {
 
 p {
   margin-top: 0;
-  margin-bottom: 1rem; }
+  margin-bottom: 1rem;
+  pont-size : 30px; }
 
 abbr[title],
 abbr[data-original-title] {
@@ -195,7 +196,7 @@ th {
   text-align: inherit; }
 
 label {
-  display: inline-block;
+  display: none;
   margin-bottom: 0.5rem; }
 
 button {

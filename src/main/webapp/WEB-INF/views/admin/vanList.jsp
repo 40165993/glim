@@ -15,7 +15,6 @@
 			<th>이름</th>
 			<th>닉네임</th>
 			<th>생년월일</th>
-			<th>성별</th>
 			<th>전화번호</th>
 			<th>차단여부</th>
 		</tr>
@@ -26,7 +25,6 @@
 				<td>${dto.name}</td>
 				<td>${dto.nickname}</td>
 				<td>${dto.birth}</td>
-				<td>${dto.gender}</td>
 				<td>${dto.phone}</td>
 				<td>${dto.vanList }</td>
 				<td><button id="cancleVan_${dto.id }" onclick="vanCancle('${dto.id}')">차단복구</button></td>

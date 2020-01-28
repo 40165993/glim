@@ -322,7 +322,7 @@ public class BoardController {
 	
 	//구독하기
 	@RequestMapping("/board/gudok.board")
-	public String isgudok(String nickname) {
+	public String isgudok(String nickname, Model model) {
 		MemberDTO id = (MemberDTO) session.getAttribute("loginInfo");
 		System.out.println("실험1 : " + id.getId());
 		System.out.println("실험 2 : " + nickname);

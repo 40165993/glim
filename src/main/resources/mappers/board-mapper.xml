@@ -35,7 +35,7 @@
 	
 	<!-- 카테고리별 게시판 띄우기 -->
 	<select id="selectCategory" resultType="glim.spring.dto.BoardDTO">
-	select * from writeBoard where category=#{category}
+	select * from writeBoard where category=#{category} order by 1 desc
 	</select>
 	
 	

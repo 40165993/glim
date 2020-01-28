@@ -73,23 +73,7 @@
 
 
 
-<script>
-    var typed = new Typed('.typed-words', {
-        strings: ["세상을 보는 다른 눈","세상을 여는 다른 창"],
-        typeSpeed: 80,
-        backSpeed: 80,
-        backDelay: 4000,
-        startDelay: 1000,
-        loop: true,
-        showCursor: true
-    });
-</script>
 
-<script type="text/javascript">
-    var loginInfo= ${loginInfo};
-    console.log("loginInfo " + loginInfo);
-
-</script>
 
 <script src="/js/main.js"></script>
 

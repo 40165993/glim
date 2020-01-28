@@ -15,7 +15,7 @@
 			<th>이름</th>
 			<th>닉네임</th>
 			<th>생년월일</th>
-			<th>성별</th>
+			
 			<th>전화번호</th>
 			<th>차단여부</th>
 		</tr>
@@ -26,7 +26,7 @@
 				<td>${dto.name}</td>
 				<td>${dto.nickname}</td>
 				<td>${dto.birth}</td>
-				<td>${dto.gender}</td>
+			
 				<td>${dto.phone}</td>
 				<td>${dto.vanList }</td>
 				<td><button id="van_${dto.id }" onclick="modi('${dto.id}')">계정정지</button></td>
@@ -41,7 +41,7 @@
 
 	<script>
 		$("#toHome").on("click", function() {
-			location.href = "${pageContext.request.contextPath}/Main";
+			location.href = "${pageContext.request.contextPath}/";
 		});
 
 		var modi = function(id) {

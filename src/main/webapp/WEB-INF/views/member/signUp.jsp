@@ -84,7 +84,7 @@ position: absolute;
             <br><br>
             
             <label for="pw">비밀번호 : </label>
-            <input type="password" id="pw" name="pw" size="20" placeholder="영문+숫자+특수문자 8~20자리"><br>
+            <input type="password" id="pw" name="pw" size="20" placeholder="영문+숫자+특수문자  8~20자리"><br>
             <span id="pwCheck"></span>
             <br><br>
             
@@ -102,7 +102,7 @@ position: absolute;
             
             
             <label for="nickname">닉네임 : </label>
-            <input type="text" id="nickname" name="nickname" size="20" ><br>
+            <input type="text" id="nickname" name="nickname" size="20" id="nickname"><br>
              <span id="nicknameCheck"></span>
             <br><br>
             
@@ -141,7 +141,7 @@ position: absolute;
       var valid_name = 0;
       var valid_phone = 0;
       var nickname = 0;
-      var valid_gender = 0;
+  
    
       $("#id").on("keyup", function(){
          var regex = /^[a-z0-9]{5,15}$/g;
@@ -151,8 +151,6 @@ position: absolute;
          if(result != null){
             $("#idCheck").html("");
             
-            $("#id").on("blur", function(){
-               
                $.ajax({
                   url:"${pageContext.request.contextPath}/member/overlap.mem",
                   type:"post",
@@ -175,50 +173,13 @@ position: absolute;
                   console.log(c);
                   alert("비동기 통신 실패!");
                });
-            });
          }
          else{
             $("#idCheck").html("아이디 형식을 확인해주세요.").css("color", "red");
             valid_id = 0;
          }
       });
-      
-      
-      $("#nickname").on("keyup", function(){
-          var regex = /^[a-z0-9]{5,15}$/g;
-          var nickname = $("#nickname").val();
-          var result = regex.exec(nickname);
-          
-          if(result != null){
-             $("#nicknameCheck").html("");
-             
-             $("#nickname").on("blur", function(){
-                
-                $.ajax({
-                   url:"${pageContext.request.contextPath}/member/overlapNickname.mem",
-                   type:"post",
-                   data:{
-                      nickname: $("#nickname").val()
-                   },
-                   dataType:"json"
-                }).done(function(data){
-                   if(data.result == 1){
-                      $("#nicknameCheck").html("중복된 닉네임입니다.").css("color", "red");
-                      valid_nickname = 0;
-                   }
-                   else{
-                      $("#nicknameCheck").html("사용가능한 닉네임입니다.").css("color", "green");
-                      valid_nickname = 1;
-                   }                  
-                }).fail(function(a, b, c){
-                   console.log(a);
-                   console.log(b);
-                   console.log(c);
-                   alert("비동기 통신 실패!");
-                });
-             });
-          }
-       });
+    
       
       $("#pw").on("input", function(){
          var pw_regex = /^[A-Za-z0-9!@#$%^&*]{8,20}$/g;
@@ -290,14 +251,52 @@ position: absolute;
             valid_phone = 0;
          }
       });
-      
+
+      $("#nickname").on("input", function(){
+          var nickname_regex = /^[가-힣a-zA-Z0-9]{2,10}$/;
+          var nickname = $("#nickname").val();
+          var nickname_result = nickname_regex.exec(nickname);
+
+          if(nickname_result != null){
+              $("#nicknameCheck").html("");
+             
+                  
+                  $.ajax({
+                     url:"${pageContext.request.contextPath}/member/overlapNickname.mem",
+                     type:"post",
+                     data:{
+                        nickname : $("#nickname").val()
+                     },
+                     dataType:"json"
+                  }).done(function(data){
+                     if(data.result == 1){
+                        $("#nicknameCheck").html("중복된 닉네임입니다.").css("color", "red");
+                        valid_nickname = 0;
+                     }
+                     else{
+                        $("#nicknameCheck").html("사용가능한 닉네임입니다.").css("color", "green");
+                        valid_nickname = 1;
+                     }                  
+                  }).fail(function(a, b, c){
+                     console.log(a);
+                     console.log(b);
+                     console.log(c);
+                     alert("비동기 통신 실패!");
+                  });
+              
+            }
+          
+          else{
+              $("#nicknameCheck").html("닉네임 형식을 확인해주세요.").css("color", "red");
+              valid_pw = 0;
+          }
+      });
       function validCheck(){
          valid_num = valid_id * valid_pw * valid_pwre * valid_name * valid_phone * valid_nickname;
          if(valid_num != 1){
             alert("유효하지 않은 정보가 있습니다.");
             return false;
-         }
-         else{
+         }else{
             return confirm("회원가입 하시겠습니까?");
          }
       }

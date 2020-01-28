@@ -1,5 +1,5 @@
 
-<!DOCTYPE html>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -23,8 +23,8 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/aos.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css">
 
-</head>
-<body>
+
+
 
 <div class="site-wrap">
 
@@ -72,7 +72,7 @@
                             </c:if>
 
                             <c:if test="${loginInfo ne null && loginInfo.id ne 'admin' && loginInfo.vanList == 'N' }">
-                                ${loginInfo.nickname}님 환영합니다.
+                               ${loginInfo.nickname}님 환영합니다.
                                 <%--                <li class="active">--%>
                                 <li><a href="${pageContext.request.contextPath}/member/myInfo.mem">MyInfo</a></li>
                                 <li><a href="${pageContext.request.contextPath}/member/logout.mem">LogOut</a></li>
@@ -120,4 +120,4 @@
         </div>
 </div>
 
-</header>
+</head>

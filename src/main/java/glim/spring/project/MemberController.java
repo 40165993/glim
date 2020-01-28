@@ -65,11 +65,15 @@ public class MemberController {
    }
    
    //닉네임중복체크
-   @RequestMapping(value="overlapNickname.mem", produces="text/html; charset=UTF-8")
+   @RequestMapping(value="/overlapNickname.mem", produces="text/html; charset=UTF-8")
    @ResponseBody
    public String overlapNickname(String nickname) {
+	   System.out.println("중복체크도착");
+	   System.out.println("닉네임 중복체크 : " + nickname);
    int result = service.overlapNickname(nickname);
-   return "{\"result\":" + result + "}";}
+   System.out.println("닉네임 result : " + result);
+   return "{\"result\":" + result + "}";
+   }
    
    
    
@@ -108,8 +112,6 @@ public class MemberController {
       MemberDTO id = (MemberDTO) session.getAttribute("loginInfo");
      
       MemberDTO result = service.myInfo(id.getId());//내정보출력
-      System.out.println("닉네임 : " + result.getNickname());
-      System.out.println("여기부터 확인해라! " +result.getWriterInfo());
       model.addAttribute("result", result);
       return "/member/info";                                                                                                                                                                                                                                                                                       
    }
@@ -141,7 +143,6 @@ public class MemberController {
    public String myModify(MemberDTO DTO, Model model) {   
 	  MemberDTO loginInfo = (MemberDTO) session.getAttribute("loginInfo");
       MemberDTO result = service.myInfo(loginInfo.getId());
-      System.out.println("writerInfo : " + result.getWriterInfo());
       boardService.selectNickname(loginInfo.getNickname());
       model.addAttribute("result", result);
       return "member/mymodify2";
