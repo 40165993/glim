@@ -102,6 +102,16 @@ public class BoardService {
 		}
 	}
 	
+	//닉네임으로 쓴 글 불러오기
+	public void selectNickname(String nickname) {
+		try {
+			boarddao.selectNickname(nickname);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	//파일 업로드
 //	public void fileUpload(int sequence, List<FileTemp> file) {
 //		try {

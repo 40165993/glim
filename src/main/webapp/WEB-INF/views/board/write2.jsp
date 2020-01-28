@@ -132,18 +132,24 @@
 							role="navigation">
 
 							<ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
-								<li class="active"><a href="/">Home</a></li>
-								<li class="has-children"><a href="/board.board">Category</a>
-									<ul class="dropdown">
-										<li><a href="/board/category.board?category=sisa">시사,이슈</a></li>
-										<li><a href="/board/category.board?category=inmun">인문학,철학</a></li>
-										<li><a href="/board/category.board?category=munhwa">문화,
-												예술</a></li>
-										<li><a href="/board/category.board?category=simli">심리,
-												탐구</a></li>
-										<li><a href="/board/category.board?category=IT">IT</a></li>
-									<li><a href="${pageContext.request.contextPath}/member/membergudok.mem">구독중인작가</a></li>
-									</ul></li>
+							<c:if test="${loginInfo ne null && loginInfo.id ne 'admin' && loginInfo.vanList == 'N' }">
+            ${loginInfo.nickname}님 환영합니다.
+                <li class="active">
+                <li class="active"><a href="${pageContext.request.contextPath}/member/myInfo.mem">내 정보보기</a></li>
+                    <li><a href="${pageContext.request.contextPath}/member/logout.mem">로그아웃</a></li>
+                          <li><a href="${pageContext.request.contextPath}/board/write.board">글쓰기</a></li>
+                <li class="has-children">
+                  <a href="/board.board">Category</a>
+                  <ul class="dropdown">
+                    <li><a href="/board/category.board?category=sisa">시사,이슈</a></li>
+                    <li><a href="/board/category.board?category=inmun">인문학,철학</a></li>
+                    <li><a href="/board/category.board?category=munhwa">문화, 예술</a></li>
+                    <li><a href="/board/category.board?category=simli">심리, 탐구</a></li>
+                    <li><a href="/board/category.board?category=IT">IT</a></li>
+                  </ul>
+                  </li>
+                  <li><a href="${pageContext.request.contextPath}/member/membergudok.mem">구독중인작가</a></li>
+                   </c:if>
 							</ul>
 						</nav>
 					</div>

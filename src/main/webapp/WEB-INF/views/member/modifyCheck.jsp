@@ -11,8 +11,8 @@
 <body>
    <script>
       if(${result} > 0){
-         alert("정보 수정 완료!");
-         location.href="${pageContext.request.contextPath}/index.mem";
+         alert("정보 수정 완료! 다시 로그인해주세요");
+         location.href="${pageContext.request.contextPath}/member/myModifyOK.mem";
       }else{
          alert("정보 수정 실패!");
          location.href="${pageContext.request.contextPath}/member/myModify.mem";

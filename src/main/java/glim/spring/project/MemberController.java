@@ -131,6 +131,7 @@ public class MemberController {
    public String myModify(MemberDTO DTO, Model model) {   
 	  MemberDTO loginInfo = (MemberDTO) session.getAttribute("loginInfo");
       MemberDTO result = service.myInfo(loginInfo.getId());
+      boardService.selectNickname(DTO.getNickname());
       model.addAttribute("result", result);
       return "/member/myModify";
    }
@@ -141,9 +142,18 @@ public class MemberController {
    @RequestMapping("/myModifyProc.mem")
    public String myModifyProc(MemberDTO dto, Model model) {
 	   MemberDTO loginInfo = (MemberDTO) session.getAttribute("loginInfo");
+	  boardService.selectNickname(dto.getNickname());
       int result  = service.myModifyProc(dto, loginInfo.getId());
+      
       model.addAttribute("result", result);
       return "/member/modifyCheck";
+   }
+   
+   //내정보수정완료
+   @RequestMapping("/myModifyOK.mem")
+   public String myModifyOK() {
+	   session.invalidate();
+	   return "index";
    }
 
 }
