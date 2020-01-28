@@ -20,6 +20,7 @@ float:left;
 </style>
 </head>
 <body>
+  <%@include file="header.jsp" %>
 
 <div class="container">
 <div id="writerInfo">작가소개

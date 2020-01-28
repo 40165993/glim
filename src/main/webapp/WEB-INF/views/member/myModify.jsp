@@ -67,10 +67,7 @@
             <span id="brithCheck"></span>
             <br>
             
-            <label for="gender">성별 : </label>
-            <input type="radio" id="gender" name="gender" size="20" value="남">남
-            <input type="radio" id="gender" name="gender" size="20" value="여">여
-            <br>
+          
             
             <label for="phone">전화번호 : </label>
             <input type="text" id="phone" name="phone" size="20" value="${result.phone}">
@@ -94,6 +91,7 @@
       var valid_num = 0;
       var valid_pw = 0;
       var valid_pwre = 0;
+      var valid_gender = 0;
       var valid_name = 1;
       var valid_phone = 1;
       

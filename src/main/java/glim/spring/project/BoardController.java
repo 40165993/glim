@@ -107,6 +107,8 @@ public class BoardController {
 				sequence = boardService.getSequence();
 				MemberDTO loginInfo = (MemberDTO) session.getAttribute("loginInfo");
 				boarddto.setNickname(loginInfo.getNickname());
+				boarddto.getTitle().replace("<", "&lt;");
+				boarddto.getText().replace("<", "&lt;");
 				boardService.insert(boarddto, sequence);//글내용인서트
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -157,10 +159,7 @@ public class BoardController {
 			filetemp.setSysName(sysName);
 			filetemp.setFilePath(path);
 			filetemp.setF(f);
-			System.out.println("여기!!!" + oriName + sysName + path);
 			temp.add(filetemp);
-			System.out.println("템프!!" + temp);
-			System.out.println("파일템프!!" + filetemp);
 			session.setAttribute("temp", temp);
 			
 		} catch (IllegalStateException e) {
@@ -220,6 +219,8 @@ public class BoardController {
 				MemberDTO loginInfo = (MemberDTO) session.getAttribute("loginInfo");
 				boarddto.setNickname(loginInfo.getNickname());
 				System.out.println("여기확인해라!!"+boarddto.getCategory());
+				boarddto.getText().replace("<", "&lt;");
+				boarddto.getTitle().replace("<", "&lt;");
 				boardService.update(boarddto);//글내용인서트
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -239,8 +240,8 @@ public class BoardController {
 			commentsdto.setWriter(loginInfo.getNickname());
 			commentsdto.setBoardSeq(seq);
 			commentsdto.setText(text);
+			commentsdto.getText().replace("<", "&lt;");
 			boardService.insert(commentsdto);
-			System.out.println(commentsdto.getBoardSeq()  + commentsdto.getText() + commentsdto.getWriter());
 		} catch (Exception e) {
 			// TODO Auto-generated dk			catch block
 			e.printStackTrace();
@@ -292,6 +293,7 @@ public class BoardController {
 			commentsdto.setCommentSeq(Integer.parseInt(commentsSeq));
 			commentsdto.setText(text);
 			commentsdto.setBoardSeq(Integer.parseInt(boardSeq));
+			commentsdto.getText().replace("<", "&lt;");
 			boardService.updateComments(commentsdto);
 			System.out.println(commentsdto.getCommentsSeq() + commentsdto.getText());
 
@@ -299,7 +301,6 @@ public class BoardController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("댓글수정리다이렉트");
 		return "redirect:/board/detail.board?seq="+boardSeq;
 
 	}

@@ -112,11 +112,6 @@ position: absolute;
             <br><br>
             
             
-            <label for="gender">성별 :                                               </label>
-            <input type="radio" id="gender" name="gender" size="20" value="남">남
-            <input type="radio" id="gender" name="gender" size="20" value="여">여
-            <br><br>
-            
             <label for="phone">전화번호 : </label>
             <input type="text" id="phone" name="phone" size="20" placeholder="-없이 10~11자리"><br>
             <span id="phoneCheck"></span>
@@ -146,6 +141,7 @@ position: absolute;
       var valid_name = 0;
       var valid_phone = 0;
       var nickname = 0;
+      var valid_gender = 0;
    
       $("#id").on("keyup", function(){
          var regex = /^[a-z0-9]{5,15}$/g;
@@ -274,6 +270,9 @@ position: absolute;
          }
       });
       
+      $("#gender").on("checked", function(){
+    	  var valid_gender = 1;
+      })
       
      
       $("#phone").on("input", function(){

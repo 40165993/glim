@@ -10,7 +10,6 @@ public class MemberDTO {
 	private String name;
 	private String nickname;
 	private String birth;
-	private String gender;
 	private String phone;
 	private String signDate;
 	private String vanList;
@@ -47,12 +46,7 @@ public class MemberDTO {
 	public void setBirth(String birth) {
 		this.birth = birth;
 	}
-	public String getGender() {
-		return gender;
-	}
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
+	
 	public String getPhone() {
 		return phone;
 	}
@@ -77,7 +71,7 @@ public class MemberDTO {
 	public void setWriterInfo(String writerInfo) {
 		this.writerInfo = writerInfo;
 	}
-	public MemberDTO(String id, String pw, String name, String nickname, String birth, String gender, String phone,
+	public MemberDTO(String id, String pw, String name, String nickname, String birth,  String phone,
 			String signDate, String vanList, String writerInfo) {
 		super();
 		this.id = id;
@@ -85,7 +79,6 @@ public class MemberDTO {
 		this.name = name;
 		this.nickname = nickname;
 		this.birth = birth;
-		this.gender = gender;
 		this.phone = phone;
 		this.signDate = signDate;
 		this.vanList = vanList;

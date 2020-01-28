@@ -8,7 +8,7 @@
 <!--   회원가입 -->
   <insert id="insert"> 
   insert into member
-  values(#{id},#{pw},#{name},#{nickname},#{birth},#{gender},#{phone},sysdate,'N',#{writerInfo})
+  values(#{id},#{pw},#{name},#{nickname},#{birth},'null',#{phone},sysdate,'N',#{writerInfo})
   </insert>
   
   <!-- 로그인 중복 -->

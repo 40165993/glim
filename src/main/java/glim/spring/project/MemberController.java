@@ -42,7 +42,13 @@ public class MemberController {
    //회원가입
    @RequestMapping("/signUpProc.mem")
    public String signUpPorc(MemberDTO dto, Model model) {
-     System.out.println("signUpPorc 잘도착");
+	   dto.getId().replace("<", "&lt;");
+		dto.getName().replace("<", "&lt;");
+		dto.getBirth().replace("<", "&lt;");
+		dto.getPw().replace("<", "&lt;");
+		dto.getNickname().replace("<", "&lt;");
+		dto.getPhone().replace("<", "&lt;");
+		dto.getWriterInfo().replace("<", "&lt;");
     int insert = service.signUpInsert(dto);
           List<BoardDTO> list = boardService.selectAll();
     		model.addAttribute("list", list);
@@ -70,6 +76,8 @@ public class MemberController {
    //로그인
    @RequestMapping("login.mem")
       public String login(String id, String pw, Model model) { 
+	   id.replace("<", "&lt;");
+	   pw.replace("<", "&lt;");
 	   int result = service.loginOk(id, pw);
 	   System.out.println("결과는 :  " + result);
 	   if(result ==1 ) {
@@ -142,9 +150,14 @@ public class MemberController {
    @RequestMapping("/myModifyProc.mem")
    public String myModifyProc(MemberDTO dto, Model model) {
 	   MemberDTO loginInfo = (MemberDTO) session.getAttribute("loginInfo");
+	   dto.getId().replace("<", "&lt;");
+		dto.getName().replace("<", "&lt;");
+		dto.getBirth().replace("<", "&lt;");
+		dto.getPw().replace("<", "&lt;");
+		dto.getNickname().replace("<", "&lt;");
+		dto.getPhone().replace("<", "&lt;");
+		dto.getWriterInfo().replace("<", "&lt;");
 	   int result  = service.myModifyProc(dto, loginInfo.getId());
-	   System.out.println("변경전 닉네임" + loginInfo.getNickname());
-	   System.out.println("변경 후 닉네임" + dto.getNickname());
 	  boardService.changeNickname(loginInfo.getNickname(), dto.getNickname());
       model.addAttribute("result", result);
       return "/member/modifyCheck";
