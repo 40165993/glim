@@ -311,7 +311,6 @@ public class BoardController {
 		System.out.println("닉네임요?? " + nickname);
 		List<BoardDTO> writeList = boardService.writerPage(nickname);//글목록
 		MemberDTO dto = service.writerInfo(nickname);//작가소개
-		System.out.println("여기는요?" + dto.getNickname());
 		int isgudok = boardService.isgudok(nickname, id.getId());//구독여부확인
 		model.addAttribute("writeList", writeList);
 		model.addAttribute("dto", dto);
