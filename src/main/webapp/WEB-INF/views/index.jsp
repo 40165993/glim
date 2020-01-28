@@ -188,7 +188,7 @@
         <div class="row mb-5 justify-content-center">
           <div class="col-md-8 text-center">
             <h2 class="text-black h1 site-section-heading text-center">CATEGORY</h2>
-            <p class="lead">각 분야별 가장 인기있는 글을 지금 바로 만나보세요</p>
+            <p class="lead">각 분야별 가장 최근에 올라온 글을 지금 바로 만나보세요</p>
             <form action = "/board/categoryCard.board">
 				<div id="category" style="float:center">
 					<select name="category" id="select" style="width:150px">
@@ -231,7 +231,7 @@
              </c:forEach>
           </div>
           <div class="col-md-6 col-lg-4">
-            <c:forEach var="list" items="${list }" begin="1" end="1">
+            <c:forEach var="list" items="${list }" begin="2" end="2">
             <a href="${pageContext.request.contextPath}/board/detail.board?seq=${list.seq}" class="media-1">
               <img src="/resources/img_3.jpg" alt="Image" class="img-fluid">
               <div class="media-1-content">

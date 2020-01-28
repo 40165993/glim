@@ -204,11 +204,11 @@ position: absolute;
                 }).done(function(data){
                    if(data.result == 1){
                       $("#nicknameCheck").html("중복된 닉네임입니다.").css("color", "red");
-                      valid_id = 0;
+                      valid_nickname = 0;
                    }
                    else{
                       $("#nicknameCheck").html("사용가능한 닉네임입니다.").css("color", "green");
-                      valid_id = 1;
+                      valid_nickname = 1;
                    }                  
                 }).fail(function(a, b, c){
                    console.log(a);
@@ -268,10 +268,10 @@ position: absolute;
             $("#nameCheck").html("올바르지 않은 이름입니다.").css("color", "red");
             valid_name = 0;
          }
-      });
+      })
       
-      $("#gender").on("checked", function(){
-    	  var valid_gender = 1;
+      $("#writerInfo").on("input", function(){
+    	  var writerInfo = $("#writerInfo").html();
       })
       
      
@@ -292,7 +292,7 @@ position: absolute;
       });
       
       function validCheck(){
-         valid_num = valid_id * valid_pw * valid_pwre * valid_name * valid_phone;
+         valid_num = valid_id * valid_pw * valid_pwre * valid_name * valid_phone * valid_nickname;
          if(valid_num != 1){
             alert("유효하지 않은 정보가 있습니다.");
             return false;

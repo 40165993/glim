@@ -106,8 +106,10 @@ public class MemberController {
    public String myInfo(Model model) {
       System.out.println("myInfo 도착");
       MemberDTO id = (MemberDTO) session.getAttribute("loginInfo");
-      System.out.println("여기ㅗ학인"+id.getId());
+     
       MemberDTO result = service.myInfo(id.getId());//내정보출력
+      System.out.println("닉네임 : " + result.getNickname());
+      System.out.println("여기부터 확인해라! " +result.getWriterInfo());
       model.addAttribute("result", result);
       return "/member/info";                                                                                                                                                                                                                                                                                       
    }
@@ -139,9 +141,10 @@ public class MemberController {
    public String myModify(MemberDTO DTO, Model model) {   
 	  MemberDTO loginInfo = (MemberDTO) session.getAttribute("loginInfo");
       MemberDTO result = service.myInfo(loginInfo.getId());
-      boardService.selectNickname(DTO.getNickname());
+      System.out.println("writerInfo : " + result.getWriterInfo());
+      boardService.selectNickname(loginInfo.getNickname());
       model.addAttribute("result", result);
-      return "/member/myModify";
+      return "member/mymodify2";
    }
    
    
@@ -150,6 +153,7 @@ public class MemberController {
    @RequestMapping("/myModifyProc.mem")
    public String myModifyProc(MemberDTO dto, Model model) {
 	   MemberDTO loginInfo = (MemberDTO) session.getAttribute("loginInfo");
+	   System.out.println("여기확인해라" + dto.getWriterInfo());
 	   dto.getId().replace("<", "&lt;");
 		dto.getName().replace("<", "&lt;");
 		dto.getBirth().replace("<", "&lt;");

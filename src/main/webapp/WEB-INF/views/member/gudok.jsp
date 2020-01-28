@@ -1,38 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<title>Glim</title>
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-<link
-	href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700,900"
-	rel="stylesheet">
-
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/magnific-popup.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/jquery-ui.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/owl.carousel.min.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/owl.theme.default.min.css">
-
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/bootstrap-datepicker.css">
-
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/aos.css">
-
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/style.css">
-
+<%@include file="../header.jsp" %>
 <style>
 
 .mb-3{
@@ -49,9 +18,9 @@
      }
     
 </style>
-</head>
+
 <body>
-  <%@include file="header.jsp" %>
+
 
 	
 
@@ -126,42 +95,4 @@
 	</section>
 
 
-	<%@include file="footer.jsp" %>
-			</div>
-			<div class="row pt-5 mt-5 text-center">
-				<div class="col-md-12">
-					<div class="border-top pt-5">
-						<p>
-							<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-							Copyright &copy;
-							<script>document.write(new Date().getFullYear());</script>
-							All rights reserved | This template is made with <i
-								class="icon-heart" aria-hidden="true"></i> by <a
-								href="https://colorlib.com" target="_blank">Colorlib</a>
-							<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-						</p>
-					</div>
-				</div>
-
-			</div>
-		</div>
-	</footer>
-	</div>
-
-
-	<script src="/js/jquery-3.3.1.min.js"></script>
-	<script src="/js/jquery-migrate-3.0.1.min.js"></script>
-	<script src="/js/jquery-ui.js"></script>
-	<script src="/js/popper.min.js"></script>
-	<script src="/js/bootstrap.min.js"></script>
-	<script src="/js/owl.carousel.min.js"></script>
-	<script src="/js/jquery.stellar.min.js"></script>
-	<script src="/js/jquery.countdown.min.js"></script>
-	<script src="/js/jquery.magnific-popup.min.js"></script>
-	<script src="/js/bootstrap-datepicker.min.js"></script>
-	<script src="/js/aos.js"></script>
-	<script src="/js/typed.js"></script>
-
-
-</body>
-</html>
+	<%@include file="../footer.jsp" %>

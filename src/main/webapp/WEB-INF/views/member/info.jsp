@@ -182,7 +182,7 @@
 					<div class="row form-group">
 						<div class="col-md-12">
 							<label class="text-black" for="message">작가소개</label>
-							<textarea name="message" class="form-control" id="message" cols="30" rows="7" value="${result.writerInfo}" readonly></textarea>
+							<input type="textarea" name="writerInfo" class="form-control" id="writerInfo" cols="30" rows="7" value="${result.writerInfo}" readonly>
 						</div>
 					</div>
 

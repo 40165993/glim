@@ -46,7 +46,7 @@
   
   <!-- 내 정보 수정 -->
   <update id="myModify">
-  update member set pw = #{pw}, name = #{name}, nickname = #{nickname}, birth = #{birth}, gender = #{gender}, phone = #{phone}, writerInfo=#{writerInfo} where id = #{id}
+  update member set pw = #{pw}, name = #{name}, nickname = #{nickname}, birth = #{birth}, phone = #{phone}, writerInfo=#{writerInfo} where id = #{id}
   </update>
   
   <select id="gudokList" resultType="glim.spring.dto.GudokDTO">
