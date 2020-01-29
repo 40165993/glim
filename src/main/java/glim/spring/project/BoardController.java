@@ -327,15 +327,16 @@ public class BoardController {
 		System.out.println("실험1 : " + id.getId());
 		System.out.println("실험 2 : " + nickname);
 		boardService.gudokinsert(nickname, id.getId());
-		return "redirect:/board/writer.board?nickname="+nickname;
+		return "member/gudokProc";
 	}
+	
 	
 	//구독취소하기
 	@RequestMapping("/board/cancleGudok.board")
 	public String cancleGudok(String nickname) {
 		MemberDTO id = (MemberDTO) session.getAttribute("loginInfo");
 		boardService.cancleGudok(nickname, id.getId());
-		return "redirect:/board/writer.board?nickname="+nickname;
+		return "member/gudokProc2";
 	}
 
 }
